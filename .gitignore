@@ -1,5 +1,3 @@
-Data/Input/AccraData/finaldata/*.gz
-Data/Input/AccraData/finaldata/*.dta
 Data/Input/AccraData/sourcedata/*.csv
 Data/Input/AccraData/sourcedata/*.dta
 Data/Input/AccraData/sourcedata/*.xlsx
