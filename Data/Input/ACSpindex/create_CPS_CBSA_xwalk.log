@@ -1,0 +1,37 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /afs/econ.duke.edu/data/vjh3/TylerJMP/ACSpindex/create_CPS_CBSA_xwalk.log
+  log type:  text
+ opened on:  15 May 2013, 09:21:40
+
+. 
+. tempfile holder1
+
+. insheet using ipums_codes.csv, comma case clear
+(2 vars, 334 obs)
+
+. save `holder1'
+file /tmp/St01962.000008 saved
+
+. 
+. insheet using cbsa_codes.csv, comma case clear
+(2 vars, 943 obs)
+
+. merge 1:1 name using `holder1'
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           943
+        from master                       776  (_merge==1)
+        from using                        167  (_merge==2)
+
+    matched                               167  (_merge==3)
+    -----------------------------------------
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /afs/econ.duke.edu/data/vjh3/TylerJMP/ACSpindex/create_CPS_CBSA_xwalk.log
+  log type:  text
+ closed on:  15 May 2013, 09:21:40
+-----------------------------------------------------------------------------------------------------------------------------------------------------

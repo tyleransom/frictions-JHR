@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$#" -leq 1 ]; then
+	echo "Error: At least two inputs required"
+else
+	tar -cvzpf $1.tgz $2
+fi
+

@@ -1,0 +1,15 @@
+Data/Input/AccraData/finaldata/*.gz
+Data/Input/AccraData/finaldata/*.dta
+Data/Input/AccraData/sourcedata/*.csv
+Data/Input/AccraData/sourcedata/*.dta
+Data/Input/AccraData/sourcedata/*.xlsx
+Data/Input/ACSMobility/Data/*.gz
+Data/Input/ACSMobility/Data/*.dta
+Data/Input/ACSpindex/*.gz
+Data/Input/ACSpindex/*.dta
+Data/Input/CountyUnemp/*.txt
+Data/Input/CountyUnemp/*.csv
+Data/Input/CountyUnemp/*.dta
+Data/PublicSIPP/Data/Temp/*.dta
+Data/PublicSIPP/Data/Temp/*.gz
+Data/PublicSIPP/Data/NBER/*

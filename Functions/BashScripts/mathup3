@@ -1,0 +1,42 @@
+#!/bin/sh
+# mathup will prepare and submit a Matlab job
+
+usage()
+{
+	echo ""
+	echo "The 'mathup' script submits Matlab batch jobs using nohup."
+	echo ""
+	echo "usage is:"
+	echo "	mathup <input_file.m> <output_file.log>"
+	echo ""
+	echo "Please note that spaces in the filename or directory may cause "
+	echo "this script to fail."
+	echo ""
+}
+
+if [ "$#" -eq 2 ]; then
+	if [ -r $1 ]; then
+		# Tempfile(s) for the script
+		tempy=tempy$$
+		touch $HOME/bin/$tempy.sh
+		shell=$HOME/bin/$tempy.sh
+		chmod +x $shell
+		echo '#!/bin/sh' > $shell
+		
+		echo "export MFNAME=$1" >> $shell
+		echo "matlab -nodesktop -nodisplay -nosplash -nojvm -singleCompThread < $1 > $2" >> $shell
+		nohup $shell &
+		# Nohup takes a split second longer than other commands
+		sleep .5s
+
+		# Delete the tempfile
+		rm -f $shell
+	else
+		echo ""
+		echo "File does not exist"
+		echo ""
+	fi
+else
+	usage
+fi
+

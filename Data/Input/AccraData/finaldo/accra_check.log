@@ -1,0 +1,1299 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /afs/econ.duke.edu/data/vjh3/TylerJMP/AccraData/accra_check.log
+  log type:  text
+ opened on:   3 Jan 2013, 15:43:45
+
+. 
+. tempfile xwalk
+
+. 
+. 
+. 
+. 
+. *****************************************************************************
+. * Initial cleaning of ACCRA data
+. *****************************************************************************
+. insheet using /afs/econ.duke.edu/data/vjh3/TylerJMP/AccraData/accra19902008.csv, comma names clear
+(15 vars, 22981 obs)
+
+. capture drop v16-v19
+
+. replace state_code = "46"    if state_code == "s46"
+(1 real change made)
+
+. replace cbsa_code  = "10100" if cbsa_code  == "s10100"
+(1 real change made)
+
+. replace city_code  = "700"   if city_code  == "s700"
+(1 real change made)
+
+. destring cbsa_code, replace
+cbsa_code has all characters numeric; replaced as long
+
+. recode cbsa_code (13644 = 47900)  // Bethesda-Gaithersburg-Frederick MD Metro Div.
+(cbsa_code: 29 changes made)
+
+. recode cbsa_code (14484 = 14460)  // Boston-Quincy MA Metro Div.
+(cbsa_code: 67 changes made)
+
+. recode cbsa_code (15764 = 14460)  // Cambridge-Newton-Framingham MA Metro Div.
+(cbsa_code: 32 changes made)
+
+. recode cbsa_code (16974 = 16980)  // Chicago-Naperville-Joliet IL Metro Div.
+(cbsa_code: 119 changes made)
+
+. recode cbsa_code (19124 = 19100)  // Dallas-Plano-Irving TX Metro Div.
+(cbsa_code: 121 changes made)
+
+. recode cbsa_code (19804 = 19820)  // Detroit-Livonia-Dearborn MI Metro Div.
+(cbsa_code: 25 changes made)
+
+. recode cbsa_code (20764 = 35620)  // Edison NJ Metro Div.
+(cbsa_code: 35 changes made)
+
+. recode cbsa_code (22744 = 33100)  // Fort Lauderdale-Pompano Beach-Deerfield Beach FL Metro Div.
+(cbsa_code: 25 changes made)
+
+. recode cbsa_code (23020 = 18880)  // Fort Walton Beach-Crestview-Destin FL Metro
+(cbsa_code: 50 changes made)
+
+. recode cbsa_code (23104 = 19100)  // Fort Worth-Arlington TX Metro Div.
+(cbsa_code: 154 changes made)
+
+. recode cbsa_code (29404 = 16980)  // Lake County-Kenosha County IL-WI Metropolitan Div.
+(cbsa_code: 4 changes made)
+
+. recode cbsa_code (30540 = 45640)  // Lexington-Thomasville NC Micro
+(cbsa_code: 10 changes made)
+
+. recode cbsa_code (31084 = 31100)  // Los Angeles-Long Beach-Glendale CA Metro Div.
+(cbsa_code: 88 changes made)
+
+. recode cbsa_code (33124 = 33100)  // Miami-Miami Beach-Kendall FL Metro Div.
+(cbsa_code: 58 changes made)
+
+. recode cbsa_code (35004 = 35620)  // Nassau-Suffolk NY Metro Div.
+(cbsa_code: 46 changes made)
+
+. recode cbsa_code (35084 = 35620)  // Newark-Union NJ-PA Metro Div.
+(cbsa_code: 40 changes made)
+
+. recode cbsa_code (35644 = 35620)  // New York-White Plains-Wayne NY-NJ Metro Div.
+(cbsa_code: 127 changes made)
+
+. recode cbsa_code (36084 = 41860)  // Oakland-Fremont-Hayward CA Metro Div.
+(cbsa_code: 33 changes made)
+
+. recode cbsa_code (37964 = 37980)  // Philadelphia PA Metro Div.
+(cbsa_code: 73 changes made)
+
+. recode cbsa_code (41884 = 41860)  // San Francisco-San Mateo-Redwood City CA Metro Div.
+(cbsa_code: 47 changes made)
+
+. recode cbsa_code (42044 = 31100)  // Santa Ana-Anaheim-Irvine CA Metro Div.
+(cbsa_code: 25 changes made)
+
+. recode cbsa_code (42260 = 35840)  // Sarasota-Bradenton-Venice FL Metro
+(cbsa_code: 117 changes made)
+
+. recode cbsa_code (42644 = 42660)  // Seattle-Bellevue-Everett WA Metro Div.
+(cbsa_code: 42 changes made)
+
+. recode cbsa_code (45104 = 42660)  // Tacoma WA Metro Div.
+(cbsa_code: 73 changes made)
+
+. recode cbsa_code (46940 = 42680)  // Vero Beach FL Metro
+(cbsa_code: 40 changes made)
+
+. recode cbsa_code (47644 = 19820)  // Warren-Farmington Hills-Troy MI Metro Div.
+(cbsa_code: 7 changes made)
+
+. recode cbsa_code (47850 = 47580)  // Warner Robins GA Metro
+(cbsa_code: 28 changes made)
+
+. recode cbsa_code (47894 = 47900)  // Washington-Arlington-Alexandria DC-VA-MD-WV Metro Div.
+(cbsa_code: 133 changes made)
+
+. recode cbsa_code (48424 = 33100)  // West Palm Beach-Boca Raton-Boynton Beach FL
+(cbsa_code: 84 changes made)
+
+. recode cbsa_code (48864 = 37980)  // Wilmington DE-MD-NJ Metro Div.
+(cbsa_code: 67 changes made)
+
+. recode cbsa_code (49220 = 32270)  // Wisconsin Rapids-Marshfield WI Micro
+(cbsa_code: 74 changes made)
+
+. 
+. gen flag = metro_micro_name == "NonMetro US"
+
+. tab state_name, mi
+
+          STATE_NAME |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+             Alabama |        719        3.13        3.13
+              Alaska |        284        1.24        4.36
+             Arizona |        514        2.24        6.60
+            Arkansas |        381        1.66        8.26
+    British Columbia |         65        0.28        8.54
+          California |        725        3.15       11.70
+            Colorado |        661        2.88       14.57
+         Connecticut |        152        0.66       15.23
+            Delaware |        145        0.63       15.87
+District of Columbia |         62        0.27       16.14
+             Florida |        928        4.04       20.17
+             Georgia |        828        3.60       23.78
+              Hawaii |         35        0.15       23.93
+               Idaho |        229        1.00       24.92
+            Illinois |        758        3.30       28.22
+             Indiana |        639        2.78       31.00
+                Iowa |        509        2.21       33.22
+              Kansas |        516        2.25       35.46
+            Kentucky |        567        2.47       37.93
+           Louisiana |        410        1.78       39.72
+               Maine |         15        0.07       39.78
+            Maryland |        200        0.87       40.65
+       Massachusetts |        181        0.79       41.44
+            Michigan |        267        1.16       42.60
+           Minnesota |        252        1.10       43.70
+         Mississippi |        223        0.97       44.67
+            Missouri |        708        3.08       47.75
+             Montana |        324        1.41       49.16
+            Nebraska |        287        1.25       50.41
+              Nevada |        204        0.89       51.29
+       New Hampshire |         46        0.20       51.49
+          New Jersey |        118        0.51       52.01
+          New Mexico |        572        2.49       54.50
+            New York |        599        2.61       57.10
+      North Carolina |      1,025        4.46       61.56
+        North Dakota |        210        0.91       62.48
+                Ohio |        796        3.46       65.94
+            Oklahoma |        650        2.83       68.77
+              Oregon |        340        1.48       70.25
+        Pennsylvania |        607        2.64       72.89
+        Rhode Island |         24        0.10       73.00
+           Saskatoon |         26        0.11       73.11
+      South Carolina |        598        2.60       75.71
+        South Dakota |        181        0.79       76.50
+           Tennessee |        846        3.68       80.18
+               Texas |      2,005        8.72       88.90
+                Utah |        307        1.34       90.24
+             Vermont |         87        0.38       90.62
+      Virgin Islands |         10        0.04       90.66
+            Virginia |        499        2.17       92.83
+          Washington |        550        2.39       95.23
+       West Virginia |        164        0.71       95.94
+           Wisconsin |        715        3.11       99.05
+             Wyoming |        218        0.95      100.00
+---------------------+-----------------------------------
+               Total |     22,981      100.00
+
+. tab urban_area_name if flag
+
+                      URBAN_AREA_NAME |      Freq.     Percent        Cum.
+--------------------------------------+-----------------------------------
+                           Clinton MO |          5        1.04        1.04
+                     Coeur d'Alene ID |          1        0.21        1.25
+                            Dalton GA |          9        1.88        3.12
+                              Eden NC |          6        1.25        4.38
+                  Glenwood Springs CO |         61       12.71       17.08
+                          Gunnison CO |         74       15.42       32.50
+                       Lake County FL |          4        0.83       33.33
+  Lexington-Buena Vista-Rockbridge VA |         18        3.75       37.08
+                    Lincoln County OR |         38        7.92       45.00
+            Marion-McDowell County NC |         71       14.79       59.79
+                  McCormick County SC |          1        0.21       60.00
+                            Nevada MO |         60       12.50       72.50
+             Pikeville-Pike County KY |         24        5.00       77.50
+                       Pryor Creek OK |         74       15.42       92.92
+                           Ruidoso NM |          2        0.42       93.33
+                         St. Croix VI |          3        0.62       93.96
+                        St. Thomas VI |          7        1.46       95.42
+                   Sullivan County NY |         11        2.29       97.71
+        Waynesville-Haywood County NC |         11        2.29      100.00
+--------------------------------------+-----------------------------------
+                                Total |        480      100.00
+
+. l year quarter urban_area_name cbsa_code metro_micro_name if flag, sep(0)
+
+       +-------------------------------------------------------------------------------+
+       | year   quarter                       urban_area_name   cbsa_c~e   metro_mic~e |
+       |-------------------------------------------------------------------------------|
+   54. | 1990        1Q                            Clinton MO      88888   NonMetro US |
+  168. | 1990        1Q             Marion-McDowell County NC      88888   NonMetro US |
+  193. | 1990        1Q                             Nevada MO      88888   NonMetro US |
+  218. | 1990        1Q                        Pryor Creek OK      88888   NonMetro US |
+  235. | 1990        1Q                            Ruidoso NM      88888   NonMetro US |
+  347. | 1990        2Q                            Clinton MO      88888   NonMetro US |
+  404. | 1990        2Q                           Gunnison CO      88888   NonMetro US |
+  443. | 1990        2Q                        Lake County FL      88888   NonMetro US |
+  492. | 1990        2Q                             Nevada MO      88888   NonMetro US |
+  528. | 1990        2Q                            Ruidoso NM      88888   NonMetro US |
+  691. | 1990        3Q                   Glenwood Springs CO      88888   NonMetro US |
+  698. | 1990        3Q                           Gunnison CO      88888   NonMetro US |
+  767. | 1990        3Q             Marion-McDowell County NC      88888   NonMetro US |
+  773. | 1990        3Q                   McCormick County SC      88888   NonMetro US |
+  795. | 1990        3Q                             Nevada MO      88888   NonMetro US |
+  820. | 1990        3Q                        Pryor Creek OK      88888   NonMetro US |
+  973. | 1990        4Q                               Eden NC      88888   NonMetro US |
+ 1004. | 1990        4Q                           Gunnison CO      88888   NonMetro US |
+ 1042. | 1990        4Q                        Lake County FL      88888   NonMetro US |
+ 1070. | 1990        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 1094. | 1990        4Q                             Nevada MO      88888   NonMetro US |
+ 1118. | 1990        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 1243. | 1991        1Q                            Clinton MO      88888   NonMetro US |
+ 1265. | 1991        1Q                               Eden NC      88888   NonMetro US |
+ 1294. | 1991        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 1301. | 1991        1Q                           Gunnison CO      88888   NonMetro US |
+ 1362. | 1991        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 1384. | 1991        1Q                             Nevada MO      88888   NonMetro US |
+ 1406. | 1991        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 1533. | 1991        2Q                            Clinton MO      88888   NonMetro US |
+ 1555. | 1991        2Q                               Eden NC      88888   NonMetro US |
+ 1582. | 1991        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 1590. | 1991        2Q                           Gunnison CO      88888   NonMetro US |
+ 1631. | 1991        2Q                        Lake County FL      88888   NonMetro US |
+ 1658. | 1991        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 1688. | 1991        2Q                             Nevada MO      88888   NonMetro US |
+ 1713. | 1991        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 1752. | 1991        2Q                         St. Thomas VI      88888   NonMetro US |
+ 1842. | 1991        3Q                            Clinton MO      88888   NonMetro US |
+ 1890. | 1991        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 1897. | 1991        3Q                           Gunnison CO      88888   NonMetro US |
+ 1936. | 1991        3Q                        Lake County FL      88888   NonMetro US |
+ 1963. | 1991        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 1989. | 1991        3Q                             Nevada MO      88888   NonMetro US |
+ 2015. | 1991        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 2057. | 1991        3Q                         St. Thomas VI      88888   NonMetro US |
+ 2167. | 1991        4Q                               Eden NC      88888   NonMetro US |
+ 2197. | 1991        4Q                   Glenwood Springs CO      88888   NonMetro US |
+ 2207. | 1991        4Q                           Gunnison CO      88888   NonMetro US |
+ 2296. | 1991        4Q                             Nevada MO      88888   NonMetro US |
+ 2320. | 1991        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 2356. | 1991        4Q                         St. Thomas VI      88888   NonMetro US |
+ 2459. | 1992        1Q                               Eden NC      88888   NonMetro US |
+ 2484. | 1992        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 2490. | 1992        1Q                           Gunnison CO      88888   NonMetro US |
+ 2553. | 1992        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 2577. | 1992        1Q                             Nevada MO      88888   NonMetro US |
+ 2602. | 1992        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 2637. | 1992        1Q                          St. Croix VI      88888   NonMetro US |
+ 2643. | 1992        1Q                         St. Thomas VI      88888   NonMetro US |
+ 2743. | 1992        2Q                             Dalton GA      88888   NonMetro US |
+ 2756. | 1992        2Q                               Eden NC      88888   NonMetro US |
+ 2779. | 1992        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 2788. | 1992        2Q                           Gunnison CO      88888   NonMetro US |
+ 2849. | 1992        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 2872. | 1992        2Q                             Nevada MO      88888   NonMetro US |
+ 2891. | 1992        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 2899. | 1992        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 2928. | 1992        2Q                          St. Croix VI      88888   NonMetro US |
+ 2932. | 1992        2Q                         St. Thomas VI      88888   NonMetro US |
+ 3034. | 1992        3Q                             Dalton GA      88888   NonMetro US |
+ 3074. | 1992        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 3083. | 1992        3Q                           Gunnison CO      88888   NonMetro US |
+ 3148. | 1992        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 3171. | 1992        3Q                             Nevada MO      88888   NonMetro US |
+ 3188. | 1992        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 3195. | 1992        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 3230. | 1992        3Q                          St. Croix VI      88888   NonMetro US |
+ 3235. | 1992        3Q                         St. Thomas VI      88888   NonMetro US |
+ 3335. | 1992        4Q                             Dalton GA      88888   NonMetro US |
+ 3384. | 1992        4Q                           Gunnison CO      88888   NonMetro US |
+ 3475. | 1992        4Q                             Nevada MO      88888   NonMetro US |
+ 3492. | 1992        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 3500. | 1992        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 3632. | 1993        1Q                             Dalton GA      88888   NonMetro US |
+ 3672. | 1993        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 3679. | 1993        1Q                           Gunnison CO      88888   NonMetro US |
+ 3747. | 1993        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 3772. | 1993        1Q                             Nevada MO      88888   NonMetro US |
+ 3787. | 1993        1Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 3796. | 1993        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 3933. | 1993        2Q                             Dalton GA      88888   NonMetro US |
+ 3972. | 1993        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 3983. | 1993        2Q                           Gunnison CO      88888   NonMetro US |
+ 4052. | 1993        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 4075. | 1993        2Q                             Nevada MO      88888   NonMetro US |
+ 4089. | 1993        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 4097. | 1993        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 4239. | 1993        3Q                             Dalton GA      88888   NonMetro US |
+ 4275. | 1993        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 4283. | 1993        3Q                           Gunnison CO      88888   NonMetro US |
+ 4375. | 1993        3Q                             Nevada MO      88888   NonMetro US |
+ 4391. | 1993        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 4398. | 1993        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 4539. | 1993        4Q                             Dalton GA      88888   NonMetro US |
+ 4575. | 1993        4Q                   Glenwood Springs CO      88888   NonMetro US |
+ 4582. | 1993        4Q                           Gunnison CO      88888   NonMetro US |
+ 4654. | 1993        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 4678. | 1993        4Q                             Nevada MO      88888   NonMetro US |
+ 4694. | 1993        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 4700. | 1993        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 4878. | 1994        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 4886. | 1994        1Q                           Gunnison CO      88888   NonMetro US |
+ 4938. | 1994        1Q                     Lincoln County OR      88888   NonMetro US |
+ 4955. | 1994        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 4977. | 1994        1Q                             Nevada MO      88888   NonMetro US |
+ 4991. | 1994        1Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 4998. | 1994        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 5141. | 1994        2Q                             Dalton GA      88888   NonMetro US |
+ 5180. | 1994        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 5188. | 1994        2Q                           Gunnison CO      88888   NonMetro US |
+ 5248. | 1994        2Q                     Lincoln County OR      88888   NonMetro US |
+ 5265. | 1994        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 5286. | 1994        2Q                             Nevada MO      88888   NonMetro US |
+ 5301. | 1994        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 5306. | 1994        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 5446. | 1994        3Q                             Dalton GA      88888   NonMetro US |
+ 5486. | 1994        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 5495. | 1994        3Q                           Gunnison CO      88888   NonMetro US |
+ 5564. | 1994        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 5586. | 1994        3Q                             Nevada MO      88888   NonMetro US |
+ 5601. | 1994        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 5607. | 1994        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 5792. | 1994        4Q                   Glenwood Springs CO      88888   NonMetro US |
+ 5800. | 1994        4Q                           Gunnison CO      88888   NonMetro US |
+ 5853. | 1994        4Q                     Lincoln County OR      88888   NonMetro US |
+ 5870. | 1994        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 5892. | 1994        4Q                             Nevada MO      88888   NonMetro US |
+ 5908. | 1994        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 5915. | 1994        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 6092. | 1995        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 6100. | 1995        1Q                           Gunnison CO      88888   NonMetro US |
+ 6155. | 1995        1Q                     Lincoln County OR      88888   NonMetro US |
+ 6171. | 1995        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 6194. | 1995        1Q                             Nevada MO      88888   NonMetro US |
+ 6210. | 1995        1Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 6217. | 1995        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 6357. | 1995        2Q                      Coeur d'Alene ID      88888   NonMetro US |
+ 6408. | 1995        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 6419. | 1995        2Q                           Gunnison CO      88888   NonMetro US |
+ 6496. | 1995        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 6518. | 1995        2Q                             Nevada MO      88888   NonMetro US |
+ 6535. | 1995        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 6541. | 1995        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 6731. | 1995        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 6742. | 1995        3Q                           Gunnison CO      88888   NonMetro US |
+ 6813. | 1995        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 6834. | 1995        3Q                             Nevada MO      88888   NonMetro US |
+ 6848. | 1995        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 6854. | 1995        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 7052. | 1995        4Q                   Glenwood Springs CO      88888   NonMetro US |
+ 7062. | 1995        4Q                           Gunnison CO      88888   NonMetro US |
+ 7130. | 1995        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 7149. | 1995        4Q                             Nevada MO      88888   NonMetro US |
+ 7165. | 1995        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 7171. | 1995        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 7365. | 1996        1Q                   Glenwood Springs CO      88888   NonMetro US |
+ 7373. | 1996        1Q                           Gunnison CO      88888   NonMetro US |
+ 7438. | 1996        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 7460. | 1996        1Q                             Nevada MO      88888   NonMetro US |
+ 7478. | 1996        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 7673. | 1996        2Q                   Glenwood Springs CO      88888   NonMetro US |
+ 7684. | 1996        2Q                           Gunnison CO      88888   NonMetro US |
+ 7752. | 1996        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 7775. | 1996        2Q                             Nevada MO      88888   NonMetro US |
+ 7797. | 1996        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 7994. | 1996        3Q                   Glenwood Springs CO      88888   NonMetro US |
+ 8004. | 1996        3Q                           Gunnison CO      88888   NonMetro US |
+ 8067. | 1996        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 8089. | 1996        3Q                             Nevada MO      88888   NonMetro US |
+ 8106. | 1996        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 8114. | 1996        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 8320. | 1996        4Q                           Gunnison CO      88888   NonMetro US |
+ 8383. | 1996        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 8405. | 1996        4Q                             Nevada MO      88888   NonMetro US |
+ 8423. | 1996        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 8430. | 1996        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 8493. | 1996        4Q         Waynesville-Haywood County NC      88888   NonMetro US |
+ 8634. | 1997        1Q                           Gunnison CO      88888   NonMetro US |
+ 8694. | 1997        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 8717. | 1997        1Q                             Nevada MO      88888   NonMetro US |
+ 8735. | 1997        1Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 8742. | 1997        1Q                        Pryor Creek OK      88888   NonMetro US |
+ 8808. | 1997        1Q         Waynesville-Haywood County NC      88888   NonMetro US |
+ 8952. | 1997        2Q                           Gunnison CO      88888   NonMetro US |
+ 9010. | 1997        2Q             Marion-McDowell County NC      88888   NonMetro US |
+ 9034. | 1997        2Q                             Nevada MO      88888   NonMetro US |
+ 9053. | 1997        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 9058. | 1997        2Q                        Pryor Creek OK      88888   NonMetro US |
+ 9125. | 1997        2Q         Waynesville-Haywood County NC      88888   NonMetro US |
+ 9276. | 1997        3Q                           Gunnison CO      88888   NonMetro US |
+ 9337. | 1997        3Q             Marion-McDowell County NC      88888   NonMetro US |
+ 9361. | 1997        3Q                             Nevada MO      88888   NonMetro US |
+ 9378. | 1997        3Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 9384. | 1997        3Q                        Pryor Creek OK      88888   NonMetro US |
+ 9449. | 1997        3Q         Waynesville-Haywood County NC      88888   NonMetro US |
+ 9590. | 1997        4Q                           Gunnison CO      88888   NonMetro US |
+ 9650. | 1997        4Q             Marion-McDowell County NC      88888   NonMetro US |
+ 9672. | 1997        4Q                             Nevada MO      88888   NonMetro US |
+ 9690. | 1997        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+ 9695. | 1997        4Q                        Pryor Creek OK      88888   NonMetro US |
+ 9904. | 1998        1Q                           Gunnison CO      88888   NonMetro US |
+ 9955. | 1998        1Q                     Lincoln County OR      88888   NonMetro US |
+ 9972. | 1998        1Q             Marion-McDowell County NC      88888   NonMetro US |
+ 9995. | 1998        1Q                             Nevada MO      88888   NonMetro US |
+10013. | 1998        1Q              Pikeville-Pike County KY      88888   NonMetro US |
+10019. | 1998        1Q                        Pryor Creek OK      88888   NonMetro US |
+10086. | 1998        1Q         Waynesville-Haywood County NC      88888   NonMetro US |
+10218. | 1998        2Q                   Glenwood Springs CO      88888   NonMetro US |
+10228. | 1998        2Q                           Gunnison CO      88888   NonMetro US |
+10278. | 1998        2Q                     Lincoln County OR      88888   NonMetro US |
+10292. | 1998        2Q             Marion-McDowell County NC      88888   NonMetro US |
+10314. | 1998        2Q                             Nevada MO      88888   NonMetro US |
+10335. | 1998        2Q              Pikeville-Pike County KY      88888   NonMetro US |
+10342. | 1998        2Q                        Pryor Creek OK      88888   NonMetro US |
+10408. | 1998        2Q         Waynesville-Haywood County NC      88888   NonMetro US |
+10552. | 1998        3Q                   Glenwood Springs CO      88888   NonMetro US |
+10564. | 1998        3Q                           Gunnison CO      88888   NonMetro US |
+10613. | 1998        3Q                     Lincoln County OR      88888   NonMetro US |
+10629. | 1998        3Q             Marion-McDowell County NC      88888   NonMetro US |
+10650. | 1998        3Q                             Nevada MO      88888   NonMetro US |
+10675. | 1998        3Q                        Pryor Creek OK      88888   NonMetro US |
+10743. | 1998        3Q         Waynesville-Haywood County NC      88888   NonMetro US |
+10868. | 1998        4Q                   Glenwood Springs CO      88888   NonMetro US |
+10879. | 1998        4Q                           Gunnison CO      88888   NonMetro US |
+10928. | 1998        4Q                     Lincoln County OR      88888   NonMetro US |
+10943. | 1998        4Q             Marion-McDowell County NC      88888   NonMetro US |
+10965. | 1998        4Q                             Nevada MO      88888   NonMetro US |
+10982. | 1998        4Q              Pikeville-Pike County KY      88888   NonMetro US |
+10990. | 1998        4Q                        Pryor Creek OK      88888   NonMetro US |
+11059. | 1998        4Q         Waynesville-Haywood County NC      88888   NonMetro US |
+11188. | 1999        1Q                   Glenwood Springs CO      88888   NonMetro US |
+11196. | 1999        1Q                           Gunnison CO      88888   NonMetro US |
+11246. | 1999        1Q                     Lincoln County OR      88888   NonMetro US |
+11262. | 1999        1Q             Marion-McDowell County NC      88888   NonMetro US |
+11283. | 1999        1Q                             Nevada MO      88888   NonMetro US |
+11305. | 1999        1Q                        Pryor Creek OK      88888   NonMetro US |
+11495. | 1999        2Q                   Glenwood Springs CO      88888   NonMetro US |
+11502. | 1999        2Q                           Gunnison CO      88888   NonMetro US |
+11556. | 1999        2Q                     Lincoln County OR      88888   NonMetro US |
+11572. | 1999        2Q             Marion-McDowell County NC      88888   NonMetro US |
+11616. | 1999        2Q                        Pryor Creek OK      88888   NonMetro US |
+11679. | 1999        2Q         Waynesville-Haywood County NC      88888   NonMetro US |
+11813. | 1999        3Q                   Glenwood Springs CO      88888   NonMetro US |
+11821. | 1999        3Q                           Gunnison CO      88888   NonMetro US |
+11874. | 1999        3Q                     Lincoln County OR      88888   NonMetro US |
+11892. | 1999        3Q             Marion-McDowell County NC      88888   NonMetro US |
+11915. | 1999        3Q                             Nevada MO      88888   NonMetro US |
+11939. | 1999        3Q                        Pryor Creek OK      88888   NonMetro US |
+12134. | 1999        4Q                   Glenwood Springs CO      88888   NonMetro US |
+12139. | 1999        4Q                           Gunnison CO      88888   NonMetro US |
+12193. | 1999        4Q                     Lincoln County OR      88888   NonMetro US |
+12209. | 1999        4Q             Marion-McDowell County NC      88888   NonMetro US |
+12253. | 1999        4Q                        Pryor Creek OK      88888   NonMetro US |
+12442. | 2000        1Q                   Glenwood Springs CO      88888   NonMetro US |
+12450. | 2000        1Q                           Gunnison CO      88888   NonMetro US |
+12503. | 2000        1Q                     Lincoln County OR      88888   NonMetro US |
+12520. | 2000        1Q             Marion-McDowell County NC      88888   NonMetro US |
+12544. | 2000        1Q                             Nevada MO      88888   NonMetro US |
+12569. | 2000        1Q                        Pryor Creek OK      88888   NonMetro US |
+12639. | 2000        1Q         Waynesville-Haywood County NC      88888   NonMetro US |
+12754. | 2000        2Q                   Glenwood Springs CO      88888   NonMetro US |
+12764. | 2000        2Q                           Gunnison CO      88888   NonMetro US |
+12818. | 2000        2Q                     Lincoln County OR      88888   NonMetro US |
+12834. | 2000        2Q             Marion-McDowell County NC      88888   NonMetro US |
+12882. | 2000        2Q                        Pryor Creek OK      88888   NonMetro US |
+13075. | 2000        3Q                   Glenwood Springs CO      88888   NonMetro US |
+13085. | 2000        3Q                           Gunnison CO      88888   NonMetro US |
+13132. | 2000        3Q                     Lincoln County OR      88888   NonMetro US |
+13149. | 2000        3Q             Marion-McDowell County NC      88888   NonMetro US |
+13171. | 2000        3Q                             Nevada MO      88888   NonMetro US |
+13195. | 2000        3Q                        Pryor Creek OK      88888   NonMetro US |
+13374. | 2000        4Q                   Glenwood Springs CO      88888   NonMetro US |
+13381. | 2000        4Q                           Gunnison CO      88888   NonMetro US |
+13434. | 2000        4Q                     Lincoln County OR      88888   NonMetro US |
+13451. | 2000        4Q             Marion-McDowell County NC      88888   NonMetro US |
+13496. | 2000        4Q                        Pryor Creek OK      88888   NonMetro US |
+13677. | 2001        1Q                   Glenwood Springs CO      88888   NonMetro US |
+13684. | 2001        1Q                           Gunnison CO      88888   NonMetro US |
+13735. | 2001        1Q                     Lincoln County OR      88888   NonMetro US |
+13749. | 2001        1Q             Marion-McDowell County NC      88888   NonMetro US |
+13772. | 2001        1Q                             Nevada MO      88888   NonMetro US |
+13799. | 2001        1Q                        Pryor Creek OK      88888   NonMetro US |
+13974. | 2001        2Q                   Glenwood Springs CO      88888   NonMetro US |
+13984. | 2001        2Q                           Gunnison CO      88888   NonMetro US |
+14041. | 2001        2Q                     Lincoln County OR      88888   NonMetro US |
+14056. | 2001        2Q             Marion-McDowell County NC      88888   NonMetro US |
+14075. | 2001        2Q                             Nevada MO      88888   NonMetro US |
+14100. | 2001        2Q                        Pryor Creek OK      88888   NonMetro US |
+14282. | 2001        3Q                   Glenwood Springs CO      88888   NonMetro US |
+14292. | 2001        3Q                           Gunnison CO      88888   NonMetro US |
+14352. | 2001        3Q                     Lincoln County OR      88888   NonMetro US |
+14366. | 2001        3Q             Marion-McDowell County NC      88888   NonMetro US |
+14389. | 2001        3Q                             Nevada MO      88888   NonMetro US |
+14418. | 2001        3Q                        Pryor Creek OK      88888   NonMetro US |
+14595. | 2001        4Q                   Glenwood Springs CO      88888   NonMetro US |
+14603. | 2001        4Q                           Gunnison CO      88888   NonMetro US |
+14657. | 2001        4Q                     Lincoln County OR      88888   NonMetro US |
+14670. | 2001        4Q             Marion-McDowell County NC      88888   NonMetro US |
+14691. | 2001        4Q                             Nevada MO      88888   NonMetro US |
+14719. | 2001        4Q                        Pryor Creek OK      88888   NonMetro US |
+14778. | 2001        4Q         Waynesville-Haywood County NC      88888   NonMetro US |
+14890. | 2002        1Q                   Glenwood Springs CO      88888   NonMetro US |
+14896. | 2002        1Q                           Gunnison CO      88888   NonMetro US |
+14949. | 2002        1Q                     Lincoln County OR      88888   NonMetro US |
+14962. | 2002        1Q             Marion-McDowell County NC      88888   NonMetro US |
+14986. | 2002        1Q                             Nevada MO      88888   NonMetro US |
+15013. | 2002        1Q                        Pryor Creek OK      88888   NonMetro US |
+15200. | 2002        2Q                           Gunnison CO      88888   NonMetro US |
+15252. | 2002        2Q                     Lincoln County OR      88888   NonMetro US |
+15265. | 2002        2Q             Marion-McDowell County NC      88888   NonMetro US |
+15288. | 2002        2Q                             Nevada MO      88888   NonMetro US |
+15314. | 2002        2Q                        Pryor Creek OK      88888   NonMetro US |
+15357. | 2002        2Q                    Sullivan County NY      88888   NonMetro US |
+15501. | 2002        3Q                   Glenwood Springs CO      88888   NonMetro US |
+15511. | 2002        3Q                           Gunnison CO      88888   NonMetro US |
+15570. | 2002        3Q                     Lincoln County OR      88888   NonMetro US |
+15582. | 2002        3Q             Marion-McDowell County NC      88888   NonMetro US |
+15605. | 2002        3Q                             Nevada MO      88888   NonMetro US |
+15635. | 2002        3Q                        Pryor Creek OK      88888   NonMetro US |
+15678. | 2002        3Q                         St. Thomas VI      88888   NonMetro US |
+15682. | 2002        3Q                    Sullivan County NY      88888   NonMetro US |
+15826. | 2002        4Q                   Glenwood Springs CO      88888   NonMetro US |
+15836. | 2002        4Q                           Gunnison CO      88888   NonMetro US |
+15889. | 2002        4Q                     Lincoln County OR      88888   NonMetro US |
+15903. | 2002        4Q             Marion-McDowell County NC      88888   NonMetro US |
+15925. | 2002        4Q                             Nevada MO      88888   NonMetro US |
+15956. | 2002        4Q                        Pryor Creek OK      88888   NonMetro US |
+15997. | 2002        4Q                    Sullivan County NY      88888   NonMetro US |
+16130. | 2003        1Q                   Glenwood Springs CO      88888   NonMetro US |
+16141. | 2003        1Q                           Gunnison CO      88888   NonMetro US |
+16191. | 2003        1Q                     Lincoln County OR      88888   NonMetro US |
+16202. | 2003        1Q             Marion-McDowell County NC      88888   NonMetro US |
+16225. | 2003        1Q                             Nevada MO      88888   NonMetro US |
+16257. | 2003        1Q                        Pryor Creek OK      88888   NonMetro US |
+16297. | 2003        1Q                    Sullivan County NY      88888   NonMetro US |
+16435. | 2003        2Q                   Glenwood Springs CO      88888   NonMetro US |
+16446. | 2003        2Q                           Gunnison CO      88888   NonMetro US |
+16496. | 2003        2Q                     Lincoln County OR      88888   NonMetro US |
+16509. | 2003        2Q             Marion-McDowell County NC      88888   NonMetro US |
+16531. | 2003        2Q                             Nevada MO      88888   NonMetro US |
+16557. | 2003        2Q                        Pryor Creek OK      88888   NonMetro US |
+16730. | 2003        3Q                   Glenwood Springs CO      88888   NonMetro US |
+16741. | 2003        3Q                           Gunnison CO      88888   NonMetro US |
+16793. | 2003        3Q                     Lincoln County OR      88888   NonMetro US |
+16806. | 2003        3Q             Marion-McDowell County NC      88888   NonMetro US |
+16829. | 2003        3Q                             Nevada MO      88888   NonMetro US |
+16859. | 2003        3Q                        Pryor Creek OK      88888   NonMetro US |
+16900. | 2003        3Q                    Sullivan County NY      88888   NonMetro US |
+17044. | 2003        4Q                   Glenwood Springs CO      88888   NonMetro US |
+17056. | 2003        4Q                           Gunnison CO      88888   NonMetro US |
+17111. | 2003        4Q                     Lincoln County OR      88888   NonMetro US |
+17125. | 2003        4Q             Marion-McDowell County NC      88888   NonMetro US |
+17174. | 2003        4Q                        Pryor Creek OK      88888   NonMetro US |
+17213. | 2003        4Q                    Sullivan County NY      88888   NonMetro US |
+17360. | 2004        1Q                   Glenwood Springs CO      88888   NonMetro US |
+17370. | 2004        1Q                           Gunnison CO      88888   NonMetro US |
+17422. | 2004        1Q                     Lincoln County OR      88888   NonMetro US |
+17434. | 2004        1Q             Marion-McDowell County NC      88888   NonMetro US |
+17456. | 2004        1Q                             Nevada MO      88888   NonMetro US |
+17486. | 2004        1Q                        Pryor Creek OK      88888   NonMetro US |
+17528. | 2004        1Q                    Sullivan County NY      88888   NonMetro US |
+17675. | 2004        2Q                   Glenwood Springs CO      88888   NonMetro US |
+17685. | 2004        2Q                           Gunnison CO      88888   NonMetro US |
+17735. | 2004        2Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+17737. | 2004        2Q                     Lincoln County OR      88888   NonMetro US |
+17749. | 2004        2Q             Marion-McDowell County NC      88888   NonMetro US |
+17770. | 2004        2Q                             Nevada MO      88888   NonMetro US |
+17800. | 2004        2Q                        Pryor Creek OK      88888   NonMetro US |
+17841. | 2004        2Q                    Sullivan County NY      88888   NonMetro US |
+17984. | 2004        3Q                   Glenwood Springs CO      88888   NonMetro US |
+17992. | 2004        3Q                           Gunnison CO      88888   NonMetro US |
+18048. | 2004        3Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+18050. | 2004        3Q                     Lincoln County OR      88888   NonMetro US |
+18060. | 2004        3Q             Marion-McDowell County NC      88888   NonMetro US |
+18086. | 2004        3Q                             Nevada MO      88888   NonMetro US |
+18114. | 2004        3Q                        Pryor Creek OK      88888   NonMetro US |
+18159. | 2004        3Q                    Sullivan County NY      88888   NonMetro US |
+18311. | 2004        4Q                   Glenwood Springs CO      88888   NonMetro US |
+18321. | 2004        4Q                           Gunnison CO      88888   NonMetro US |
+18370. | 2004        4Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+18372. | 2004        4Q                     Lincoln County OR      88888   NonMetro US |
+18384. | 2004        4Q             Marion-McDowell County NC      88888   NonMetro US |
+18406. | 2004        4Q                             Nevada MO      88888   NonMetro US |
+18434. | 2004        4Q                        Pryor Creek OK      88888   NonMetro US |
+18475. | 2004        4Q                    Sullivan County NY      88888   NonMetro US |
+18604. | 2005        1Q                   Glenwood Springs CO      88888   NonMetro US |
+18613. | 2005        1Q                           Gunnison CO      88888   NonMetro US |
+18665. | 2005        1Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+18667. | 2005        1Q                     Lincoln County OR      88888   NonMetro US |
+18677. | 2005        1Q             Marion-McDowell County NC      88888   NonMetro US |
+18700. | 2005        1Q                             Nevada MO      88888   NonMetro US |
+18731. | 2005        1Q                        Pryor Creek OK      88888   NonMetro US |
+18906. | 2005        2Q                           Gunnison CO      88888   NonMetro US |
+18956. | 2005        2Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+18958. | 2005        2Q                     Lincoln County OR      88888   NonMetro US |
+18967. | 2005        2Q             Marion-McDowell County NC      88888   NonMetro US |
+19016. | 2005        2Q                        Pryor Creek OK      88888   NonMetro US |
+19055. | 2005        2Q                    Sullivan County NY      88888   NonMetro US |
+19180. | 2005        3Q                   Glenwood Springs CO      88888   NonMetro US |
+19188. | 2005        3Q                           Gunnison CO      88888   NonMetro US |
+19236. | 2005        3Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+19239. | 2005        3Q                     Lincoln County OR      88888   NonMetro US |
+19249. | 2005        3Q             Marion-McDowell County NC      88888   NonMetro US |
+19271. | 2005        3Q                             Nevada MO      88888   NonMetro US |
+19303. | 2005        3Q                        Pryor Creek OK      88888   NonMetro US |
+19486. | 2005        4Q                           Gunnison CO      88888   NonMetro US |
+19535. | 2005        4Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+19538. | 2005        4Q                     Lincoln County OR      88888   NonMetro US |
+19550. | 2005        4Q             Marion-McDowell County NC      88888   NonMetro US |
+19573. | 2005        4Q                             Nevada MO      88888   NonMetro US |
+19606. | 2005        4Q                        Pryor Creek OK      88888   NonMetro US |
+19777. | 2006        1Q                   Glenwood Springs CO      88888   NonMetro US |
+19785. | 2006        1Q                           Gunnison CO      88888   NonMetro US |
+19836. | 2006        1Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+19839. | 2006        1Q                     Lincoln County OR      88888   NonMetro US |
+19850. | 2006        1Q             Marion-McDowell County NC      88888   NonMetro US |
+19871. | 2006        1Q                             Nevada MO      88888   NonMetro US |
+19900. | 2006        1Q                        Pryor Creek OK      88888   NonMetro US |
+20083. | 2006        2Q                   Glenwood Springs CO      88888   NonMetro US |
+20091. | 2006        2Q                           Gunnison CO      88888   NonMetro US |
+20144. | 2006        2Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+20147. | 2006        2Q                     Lincoln County OR      88888   NonMetro US |
+20159. | 2006        2Q             Marion-McDowell County NC      88888   NonMetro US |
+20182. | 2006        2Q                             Nevada MO      88888   NonMetro US |
+20214. | 2006        2Q                        Pryor Creek OK      88888   NonMetro US |
+20383. | 2006        3Q                   Glenwood Springs CO      88888   NonMetro US |
+20392. | 2006        3Q                           Gunnison CO      88888   NonMetro US |
+20442. | 2006        3Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+20454. | 2006        3Q             Marion-McDowell County NC      88888   NonMetro US |
+20505. | 2006        3Q                        Pryor Creek OK      88888   NonMetro US |
+20675. | 2006        4Q                   Glenwood Springs CO      88888   NonMetro US |
+20682. | 2006        4Q                           Gunnison CO      88888   NonMetro US |
+20729. | 2006        4Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+20743. | 2006        4Q             Marion-McDowell County NC      88888   NonMetro US |
+20786. | 2006        4Q                        Pryor Creek OK      88888   NonMetro US |
+20951. | 2007        1Q                   Glenwood Springs CO      88888   NonMetro US |
+20959. | 2007        1Q                           Gunnison CO      88888   NonMetro US |
+21009. | 2007        1Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+21023. | 2007        1Q             Marion-McDowell County NC      88888   NonMetro US |
+21072. | 2007        1Q                        Pryor Creek OK      88888   NonMetro US |
+21244. | 2007        2Q                   Glenwood Springs CO      88888   NonMetro US |
+21252. | 2007        2Q                           Gunnison CO      88888   NonMetro US |
+21302. | 2007        2Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+21313. | 2007        2Q             Marion-McDowell County NC      88888   NonMetro US |
+21361. | 2007        2Q                        Pryor Creek OK      88888   NonMetro US |
+21539. | 2007        3Q                   Glenwood Springs CO      88888   NonMetro US |
+21547. | 2007        3Q                           Gunnison CO      88888   NonMetro US |
+21592. | 2007        3Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+21604. | 2007        3Q             Marion-McDowell County NC      88888   NonMetro US |
+21656. | 2007        3Q                        Pryor Creek OK      88888   NonMetro US |
+21842. | 2007        4Q                   Glenwood Springs CO      88888   NonMetro US |
+21850. | 2007        4Q                           Gunnison CO      88888   NonMetro US |
+21900. | 2007        4Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+21912. | 2007        4Q             Marion-McDowell County NC      88888   NonMetro US |
+21963. | 2007        4Q                        Pryor Creek OK      88888   NonMetro US |
+22145. | 2008        1Q                   Glenwood Springs CO      88888   NonMetro US |
+22152. | 2008        1Q                           Gunnison CO      88888   NonMetro US |
+22200. | 2008        1Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+22214. | 2008        1Q             Marion-McDowell County NC      88888   NonMetro US |
+22267. | 2008        1Q                        Pryor Creek OK      88888   NonMetro US |
+22470. | 2008        2Q                           Gunnison CO      88888   NonMetro US |
+22520. | 2008        2Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+22534. | 2008        2Q             Marion-McDowell County NC      88888   NonMetro US |
+22587. | 2008        2Q                        Pryor Creek OK      88888   NonMetro US |
+22778. | 2008        3Q                   Glenwood Springs CO      88888   NonMetro US |
+22786. | 2008        3Q                           Gunnison CO      88888   NonMetro US |
+22834. | 2008        3Q   Lexington-Buena Vista-Rockbridge VA      99999   NonMetro US |
+22848. | 2008        3Q             Marion-McDowell County NC      88888   NonMetro US |
+22902. | 2008        3Q                        Pryor Creek OK      88888   NonMetro US |
+       +-------------------------------------------------------------------------------+
+
+. 
+. drop if metro_micro_name == "Nonmetropolitan Census Area Canada" 
+(58 observations deleted)
+
+. drop if metro_micro_name == "Saskatoon SK CMA"
+(26 observations deleted)
+
+. drop if state_name       == "Virgin Islands"
+(10 observations deleted)
+
+. 
+. keep metro_micro_name cbsa_code
+
+. collapse (first) metro_micro_name, by(cbsa_code)
+
+. sort cbsa_code
+
+. codebook cbsa_code
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cbsa_code                                                                                                                                                               CBSA_CODE
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (long)
+
+                 range:  [10100,99999]                units:  1
+         unique values:  466                      missing .:  0/466
+
+                  mean:   30034.4
+              std. dev:   12350.3
+
+           percentiles:        10%       25%       50%       75%       90%
+                             14060     19980     29500     39340     45500
+
+. 
+. preserve
+
+. *****************************************************************************
+. * read in county crosswalk data for future merging 
+. * [source: Missouri's MABLE/Geocorr12 website]
+. *****************************************************************************
+. insheet using /afs/econ.duke.edu/data/vjh3/TylerJMP/AccraData/countyxwalk.csv, comma names clear
+(12 vars, 3143 obs)
+
+. ren cbsa cbsa_code
+
+. isid county
+
+. replace county = county-state*1000
+(3143 real changes made)
+
+. 
+. keep cbsaname cbsa_code
+
+. collapse (first) cbsaname, by(cbsa_code)
+
+. 
+. codebook cbsa_code
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cbsa_code                                                                                                                                                             (unlabeled)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (long)
+
+                 range:  [10020,99999]                units:  1
+         unique values:  943                      missing .:  0/943
+
+                  mean:     29836
+              std. dev:   11592.1
+
+           percentiles:        10%       25%       50%       75%       90%
+                             13980     19940     29820     39540     45540
+
+. 
+. save `xwalk', replace
+(note: file /tmp/St26126.000047 not found)
+file /tmp/St26126.000047 saved
+
+. restore
+
+. 
+. merge 1:1 cbsa_code using `xwalk'
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           481
+        from master                         2  (_merge==1)
+        from using                        479  (_merge==2)
+
+    matched                               464  (_merge==3)
+    -----------------------------------------
+
+. 
+. l if _merge==1, sep(0)
+
+     +------------------------------------------------------+
+     | cbsa_c~e   metro_micr~e   cbsaname            _merge |
+     |------------------------------------------------------|
+464. |    88888    NonMetro US              master only (1) |
+465. |    99933   Vancouver BC              master only (1) |
+     +------------------------------------------------------+
+
+. l if _merge==2, sep(0)
+
+     +---------------------------------------------------------------------------------------------------------+
+     | cbsa_c~e   metro_~e                                                           cbsaname           _merge |
+     |---------------------------------------------------------------------------------------------------------|
+467. |    10020                                   Abbeville, LA Micropolitan Statistical Area   using only (2) |
+468. |    10140                                    Aberdeen, WA Micropolitan Statistical Area   using only (2) |
+469. |    10220                                         Ada, OK Micropolitan Statistical Area   using only (2) |
+470. |    10300                                      Adrian, MI Micropolitan Statistical Area   using only (2) |
+471. |    10540                              Albany-Lebanon, OR Micropolitan Statistical Area   using only (2) |
+472. |    10660                                  Albert Lea, MN Micropolitan Statistical Area   using only (2) |
+473. |    10760                              Alexander City, AL Micropolitan Statistical Area   using only (2) |
+474. |    10820                                  Alexandria, MN Micropolitan Statistical Area   using only (2) |
+475. |    10860                                       Alice, TX Micropolitan Statistical Area   using only (2) |
+476. |    10880                                     Allegan, MI Micropolitan Statistical Area   using only (2) |
+477. |    10940                                        Alma, MI Micropolitan Statistical Area   using only (2) |
+478. |    10980                                      Alpena, MI Micropolitan Statistical Area   using only (2) |
+479. |    11060                                       Altus, OK Micropolitan Statistical Area   using only (2) |
+480. |    11220                                   Amsterdam, NY Micropolitan Statistical Area   using only (2) |
+481. |    11380                                     Andrews, TX Micropolitan Statistical Area   using only (2) |
+482. |    11420                                      Angola, IN Micropolitan Statistical Area   using only (2) |
+483. |    11580                                     Arcadia, FL Micropolitan Statistical Area   using only (2) |
+484. |    11660                                 Arkadelphia, AR Micropolitan Statistical Area   using only (2) |
+485. |    11780                                   Ashtabula, OH Micropolitan Statistical Area   using only (2) |
+486. |    11820                                     Astoria, OR Micropolitan Statistical Area   using only (2) |
+487. |    11860                                    Atchison, KS Micropolitan Statistical Area   using only (2) |
+488. |    11900                                      Athens, OH Micropolitan Statistical Area   using only (2) |
+489. |    11940                                      Athens, TN Micropolitan Statistical Area   using only (2) |
+490. |    11980                                      Athens, TX Micropolitan Statistical Area   using only (2) |
+491. |    12100                     Atlantic City-Hammonton, NJ Metropolitan Statistical Area   using only (2) |
+492. |    12140                                      Auburn, IN Micropolitan Statistical Area   using only (2) |
+493. |    12180                                      Auburn, NY Micropolitan Statistical Area   using only (2) |
+494. |    12300                          Augusta-Waterville, ME Micropolitan Statistical Area   using only (2) |
+495. |    12380                                      Austin, MN Micropolitan Statistical Area   using only (2) |
+496. |    12660                                     Baraboo, WI Micropolitan Statistical Area   using only (2) |
+497. |    12700                             Barnstable Town, MA Metropolitan Statistical Area   using only (2) |
+498. |    12820                                     Bastrop, LA Micropolitan Statistical Area   using only (2) |
+499. |    12860                                     Batavia, NY Micropolitan Statistical Area   using only (2) |
+500. |    12980                                Battle Creek, MI Metropolitan Statistical Area   using only (2) |
+501. |    13020                                    Bay City, MI Metropolitan Statistical Area   using only (2) |
+502. |    13060                                    Bay City, TX Micropolitan Statistical Area   using only (2) |
+503. |    13100                                    Beatrice, NE Micropolitan Statistical Area   using only (2) |
+504. |    13180                                  Beaver Dam, WI Micropolitan Statistical Area   using only (2) |
+505. |    13220                                     Beckley, WV Micropolitan Statistical Area   using only (2) |
+506. |    13260                                     Bedford, IN Micropolitan Statistical Area   using only (2) |
+507. |    13300                                    Beeville, TX Micropolitan Statistical Area   using only (2) |
+508. |    13340                               Bellefontaine, OH Micropolitan Statistical Area   using only (2) |
+509. |    13420                                     Bemidji, MN Micropolitan Statistical Area   using only (2) |
+510. |    13500                               Bennettsville, SC Micropolitan Statistical Area   using only (2) |
+511. |    13540                                  Bennington, VT Micropolitan Statistical Area   using only (2) |
+512. |    13620                                   Berlin, NH-VT Micropolitan Statistical Area   using only (2) |
+513. |    13660                                  Big Rapids, MI Micropolitan Statistical Area   using only (2) |
+514. |    13700                                  Big Spring, TX Micropolitan Statistical Area   using only (2) |
+515. |    13860                                      Bishop, CA Micropolitan Statistical Area   using only (2) |
+516. |    13940                                   Blackfoot, ID Micropolitan Statistical Area   using only (2) |
+517. |    14100                          Bloomsburg-Berwick, PA Micropolitan Statistical Area   using only (2) |
+518. |    14140                                Bluefield, WV-VA Micropolitan Statistical Area   using only (2) |
+519. |    14180                                 Blytheville, AR Micropolitan Statistical Area   using only (2) |
+520. |    14220                                    Bogalusa, LA Micropolitan Statistical Area   using only (2) |
+521. |    14300                                      Bonham, TX Micropolitan Statistical Area   using only (2) |
+522. |    14340                                       Boone, IA Micropolitan Statistical Area   using only (2) |
+523. |    14380                                       Boone, NC Micropolitan Statistical Area   using only (2) |
+524. |    14420                                      Borger, TX Micropolitan Statistical Area   using only (2) |
+525. |    14620                                    Bradford, PA Micropolitan Statistical Area   using only (2) |
+526. |    14660                                    Brainerd, MN Micropolitan Statistical Area   using only (2) |
+527. |    14700                                     Branson, MO Micropolitan Statistical Area   using only (2) |
+528. |    14780                                     Brenham, TX Micropolitan Statistical Area   using only (2) |
+529. |    14820                                     Brevard, NC Micropolitan Statistical Area   using only (2) |
+530. |    14940                                Brigham City, UT Micropolitan Statistical Area   using only (2) |
+531. |    15020                                  Brookhaven, MS Micropolitan Statistical Area   using only (2) |
+532. |    15060                                   Brookings, OR Micropolitan Statistical Area   using only (2) |
+533. |    15100                                   Brookings, SD Micropolitan Statistical Area   using only (2) |
+534. |    15140                                 Brownsville, TN Micropolitan Statistical Area   using only (2) |
+535. |    15220                                   Brownwood, TX Micropolitan Statistical Area   using only (2) |
+536. |    15260                                   Brunswick, GA Metropolitan Statistical Area   using only (2) |
+537. |    15340                                     Bucyrus, OH Micropolitan Statistical Area   using only (2) |
+538. |    15420                                      Burley, ID Micropolitan Statistical Area   using only (2) |
+539. |    15580                            Butte-Silver Bow, MT Micropolitan Statistical Area   using only (2) |
+540. |    15620                                    Cadillac, MI Micropolitan Statistical Area   using only (2) |
+541. |    15660                                     Calhoun, GA Micropolitan Statistical Area   using only (2) |
+542. |    15700                                   Cambridge, MD Micropolitan Statistical Area   using only (2) |
+543. |    15740                                   Cambridge, OH Micropolitan Statistical Area   using only (2) |
+544. |    15780                                      Camden, AR Micropolitan Statistical Area   using only (2) |
+545. |    15820                              Campbellsville, KY Micropolitan Statistical Area   using only (2) |
+546. |    15860                                  Cañon City, CO Micropolitan Statistical Area   using only (2) |
+547. |    15900                                      Canton, IL Micropolitan Statistical Area   using only (2) |
+548. |    16340                                   Cedartown, GA Micropolitan Statistical Area   using only (2) |
+549. |    16380                                      Celina, OH Micropolitan Statistical Area   using only (2) |
+550. |    16420                                Central City, KY Micropolitan Statistical Area   using only (2) |
+551. |    16500                                   Centralia, WA Micropolitan Statistical Area   using only (2) |
+552. |    16900                                     Chester, SC Micropolitan Statistical Area   using only (2) |
+553. |    17200                                   Claremont, NH Micropolitan Statistical Area   using only (2) |
+554. |    17260                                  Clarksdale, MS Micropolitan Statistical Area   using only (2) |
+555. |    17340                                   Clearlake, CA Micropolitan Statistical Area   using only (2) |
+556. |    17380                                   Cleveland, MS Micropolitan Statistical Area   using only (2) |
+557. |    17500                                   Clewiston, FL Micropolitan Statistical Area   using only (2) |
+558. |    17540                                     Clinton, IA Micropolitan Statistical Area   using only (2) |
+559. |    17660                                Coeur dAlene, ID Metropolitan Statistical Area   using only (2) |
+560. |    17700                                 Coffeyville, KS Micropolitan Statistical Area   using only (2) |
+561. |    17740                                   Coldwater, MI Micropolitan Statistical Area   using only (2) |
+562. |    18020                                    Columbus, IN Metropolitan Statistical Area   using only (2) |
+563. |    18060                                    Columbus, MS Micropolitan Statistical Area   using only (2) |
+564. |    18100                                    Columbus, NE Micropolitan Statistical Area   using only (2) |
+565. |    18180                                     Concord, NH Micropolitan Statistical Area   using only (2) |
+566. |    18220                                Connersville, IN Micropolitan Statistical Area   using only (2) |
+567. |    18340                                      Corbin, KY Micropolitan Statistical Area   using only (2) |
+568. |    18380                                     Cordele, GA Micropolitan Statistical Area   using only (2) |
+569. |    18420                                     Corinth, MS Micropolitan Statistical Area   using only (2) |
+570. |    18460                                    Cornelia, GA Micropolitan Statistical Area   using only (2) |
+571. |    18500                                     Corning, NY Micropolitan Statistical Area   using only (2) |
+572. |    18620                                   Corsicana, TX Micropolitan Statistical Area   using only (2) |
+573. |    18740                                   Coshocton, OH Micropolitan Statistical Area   using only (2) |
+574. |    18820                              Crawfordsville, IN Micropolitan Statistical Area   using only (2) |
+575. |    18860                               Crescent City, CA Micropolitan Statistical Area   using only (2) |
+576. |    18900                                  Crossville, TN Micropolitan Statistical Area   using only (2) |
+577. |    18940                                     Crowley, LA Micropolitan Statistical Area   using only (2) |
+578. |    19020                                    Culpeper, VA Micropolitan Statistical Area   using only (2) |
+579. |    19140                                      Dalton, GA Metropolitan Statistical Area   using only (2) |
+580. |    19300                       Daphne-Fairhope-Foley, AL Micropolitan Statistical Area   using only (2) |
+581. |    19540                                     Decatur, IN Micropolitan Statistical Area   using only (2) |
+582. |    19580                                    Defiance, OH Micropolitan Statistical Area   using only (2) |
+583. |    19700                                      Deming, NM Micropolitan Statistical Area   using only (2) |
+584. |    19760                                    DeRidder, LA Micropolitan Statistical Area   using only (2) |
+585. |    19860                                   Dickinson, ND Micropolitan Statistical Area   using only (2) |
+586. |    19900                                      Dillon, SC Micropolitan Statistical Area   using only (2) |
+587. |    20140                                      Dublin, GA Micropolitan Statistical Area   using only (2) |
+588. |    20180                                      DuBois, PA Micropolitan Statistical Area   using only (2) |
+589. |    20300                                       Dumas, TX Micropolitan Statistical Area   using only (2) |
+590. |    20340                                      Duncan, OK Micropolitan Statistical Area   using only (2) |
+591. |    20380                                        Dunn, NC Micropolitan Statistical Area   using only (2) |
+592. |    20420                                     Durango, CO Micropolitan Statistical Area   using only (2) |
+593. |    20460                                      Durant, OK Micropolitan Statistical Area   using only (2) |
+594. |    20580                                  Eagle Pass, TX Micropolitan Statistical Area   using only (2) |
+595. |    20620                        East Liverpool-Salem, OH Micropolitan Statistical Area   using only (2) |
+596. |    20660                                      Easton, MD Micropolitan Statistical Area   using only (2) |
+597. |    20700                            East Stroudsburg, PA Micropolitan Statistical Area   using only (2) |
+598. |    20780                                     Edwards, CO Micropolitan Statistical Area   using only (2) |
+599. |    20820                                   Effingham, IL Micropolitan Statistical Area   using only (2) |
+600. |    20900                                    El Campo, TX Micropolitan Statistical Area   using only (2) |
+601. |    20940                                   El Centro, CA Metropolitan Statistical Area   using only (2) |
+602. |    21020                              Elizabeth City, NC Micropolitan Statistical Area   using only (2) |
+603. |    21060                               Elizabethtown, KY Metropolitan Statistical Area   using only (2) |
+604. |    21120                                    Elk City, OK Micropolitan Statistical Area   using only (2) |
+605. |    21260                                  Ellensburg, WA Micropolitan Statistical Area   using only (2) |
+606. |    21380                                     Emporia, KS Micropolitan Statistical Area   using only (2) |
+607. |    21460                            Enterprise-Ozark, AL Micropolitan Statistical Area   using only (2) |
+608. |    21540                                    Escanaba, MI Micropolitan Statistical Area   using only (2) |
+609. |    21640                                  Eufaula, AL-GA Micropolitan Statistical Area   using only (2) |
+610. |    21740                                    Evanston, WY Micropolitan Statistical Area   using only (2) |
+611. |    21860                                    Fairmont, MN Micropolitan Statistical Area   using only (2) |
+612. |    21900                                    Fairmont, WV Micropolitan Statistical Area   using only (2) |
+613. |    21980                                      Fallon, NV Micropolitan Statistical Area   using only (2) |
+614. |    22060                        Faribault-Northfield, MN Micropolitan Statistical Area   using only (2) |
+615. |    22100                                  Farmington, MO Micropolitan Statistical Area   using only (2) |
+616. |    22260                                Fergus Falls, MN Micropolitan Statistical Area   using only (2) |
+617. |    22280                                     Fernley, NV Micropolitan Statistical Area   using only (2) |
+618. |    22340                                  Fitzgerald, GA Micropolitan Statistical Area   using only (2) |
+619. |    22420                                       Flint, MI Metropolitan Statistical Area   using only (2) |
+620. |    22580                                 Forest City, NC Micropolitan Statistical Area   using only (2) |
+621. |    22620                                Forrest City, AR Micropolitan Statistical Area   using only (2) |
+622. |    22780                           Fort Leonard Wood, MO Micropolitan Statistical Area   using only (2) |
+623. |    22800                      Fort Madison-Keokuk, IA-MO Micropolitan Statistical Area   using only (2) |
+624. |    22820                                 Fort Morgan, CO Micropolitan Statistical Area   using only (2) |
+625. |    22840                                  Fort Payne, AL Micropolitan Statistical Area   using only (2) |
+626. |    22860                             Fort Polk South, LA Micropolitan Statistical Area   using only (2) |
+627. |    22980                                 Fort Valley, GA Micropolitan Statistical Area   using only (2) |
+628. |    23140                                   Frankfort, IN Micropolitan Statistical Area   using only (2) |
+629. |    23180                                   Frankfort, KY Micropolitan Statistical Area   using only (2) |
+630. |    23240                              Fredericksburg, TX Micropolitan Statistical Area   using only (2) |
+631. |    23340                                     Fremont, NE Micropolitan Statistical Area   using only (2) |
+632. |    23380                                     Fremont, OH Micropolitan Statistical Area   using only (2) |
+633. |    23500                                     Gaffney, SC Micropolitan Statistical Area   using only (2) |
+634. |    23580                                 Gainesville, GA Metropolitan Statistical Area   using only (2) |
+635. |    23620                                 Gainesville, TX Micropolitan Statistical Area   using only (2) |
+636. |    23700                                      Gallup, NM Micropolitan Statistical Area   using only (2) |
+637. |    23820                        Gardnerville Ranchos, NV Micropolitan Statistical Area   using only (2) |
+638. |    23900                                  Gettysburg, PA Micropolitan Statistical Area   using only (2) |
+639. |    23980                                     Glasgow, KY Micropolitan Statistical Area   using only (2) |
+640. |    24100                                Gloversville, NY Micropolitan Statistical Area   using only (2) |
+641. |    24180                                    Granbury, TX Micropolitan Statistical Area   using only (2) |
+642. |    24380                                      Grants, NM Micropolitan Statistical Area   using only (2) |
+643. |    24420                                 Grants Pass, OR Micropolitan Statistical Area   using only (2) |
+644. |    24700                                  Greensburg, IN Micropolitan Statistical Area   using only (2) |
+645. |    24740                                  Greenville, MS Micropolitan Statistical Area   using only (2) |
+646. |    24820                                  Greenville, OH Micropolitan Statistical Area   using only (2) |
+647. |    24900                                   Greenwood, MS Micropolitan Statistical Area   using only (2) |
+648. |    24980                                     Grenada, MS Micropolitan Statistical Area   using only (2) |
+649. |    25100                                      Guymon, OK Micropolitan Statistical Area   using only (2) |
+650. |    25220                                     Hammond, LA Micropolitan Statistical Area   using only (2) |
+651. |    25260                            Hanford-Corcoran, CA Metropolitan Statistical Area   using only (2) |
+652. |    25300                                    Hannibal, MO Micropolitan Statistical Area   using only (2) |
+653. |    25340                                    Harriman, TN Micropolitan Statistical Area   using only (2) |
+654. |    25380                                  Harrisburg, IL Micropolitan Statistical Area   using only (2) |
+655. |    25460                                    Harrison, AR Micropolitan Statistical Area   using only (2) |
+656. |    25660                                       Havre, MT Micropolitan Statistical Area   using only (2) |
+657. |    25720                                       Heber, UT Micropolitan Statistical Area   using only (2) |
+658. |    25760                          Helena-West Helena, AR Micropolitan Statistical Area   using only (2) |
+659. |    25780                                   Henderson, NC Micropolitan Statistical Area   using only (2) |
+660. |    25820                                    Hereford, TX Micropolitan Statistical Area   using only (2) |
+661. |    25980                     Hinesville-Fort Stewart, GA Metropolitan Statistical Area   using only (2) |
+662. |    26140                           Homosassa Springs, FL Micropolitan Statistical Area   using only (2) |
+663. |    26220                                  Hood River, OR Micropolitan Statistical Area   using only (2) |
+664. |    26260                                        Hope, AR Micropolitan Statistical Area   using only (2) |
+665. |    26340                                    Houghton, MI Micropolitan Statistical Area   using only (2) |
+666. |    26380                  Houma-Bayou Cane-Thibodaux, LA Metropolitan Statistical Area   using only (2) |
+667. |    26460                                      Hudson, NY Micropolitan Statistical Area   using only (2) |
+668. |    26480                                    Humboldt, TN Micropolitan Statistical Area   using only (2) |
+669. |    26500                                  Huntingdon, PA Micropolitan Statistical Area   using only (2) |
+670. |    26540                                  Huntington, IN Micropolitan Statistical Area   using only (2) |
+671. |    26660                                  Huntsville, TX Micropolitan Statistical Area   using only (2) |
+672. |    26700                                       Huron, SD Micropolitan Statistical Area   using only (2) |
+673. |    26780                                  Hutchinson, MN Micropolitan Statistical Area   using only (2) |
+674. |    26940                                   Indianola, MS Micropolitan Statistical Area   using only (2) |
+675. |    27020                            Iron Mountain, MI-WI Micropolitan Statistical Area   using only (2) |
+676. |    27100                                     Jackson, MI Metropolitan Statistical Area   using only (2) |
+677. |    27220                                  Jackson, WY-ID Micropolitan Statistical Area   using only (2) |
+678. |    27300                                Jacksonville, IL Micropolitan Statistical Area   using only (2) |
+679. |    27380                                Jacksonville, TX Micropolitan Statistical Area   using only (2) |
+680. |    27420                                   Jamestown, ND Micropolitan Statistical Area   using only (2) |
+681. |    27540                                      Jasper, IN Micropolitan Statistical Area   using only (2) |
+682. |    27660                                    Jennings, LA Micropolitan Statistical Area   using only (2) |
+683. |    27700                                       Jesup, GA Micropolitan Statistical Area   using only (2) |
+684. |    27980                             Kahului-Wailuku, HI Micropolitan Statistical Area   using only (2) |
+685. |    28100                            Kankakee-Bradley, IL Metropolitan Statistical Area   using only (2) |
+686. |    28180                                       Kapaa, HI Micropolitan Statistical Area   using only (2) |
+687. |    28300                                       Keene, NH Micropolitan Statistical Area   using only (2) |
+688. |    28340                                Kendallville, IN Micropolitan Statistical Area   using only (2) |
+689. |    28580                                    Key West, FL Micropolitan Statistical Area   using only (2) |
+690. |    28740                                    Kingston, NY Metropolitan Statistical Area   using only (2) |
+691. |    28780                                  Kingsville, TX Micropolitan Statistical Area   using only (2) |
+692. |    29020                                      Kokomo, IN Metropolitan Statistical Area   using only (2) |
+693. |    29060                                     Laconia, NH Micropolitan Statistical Area   using only (2) |
+694. |    29220                                 La Follette, TN Micropolitan Statistical Area   using only (2) |
+695. |    29260                                   La Grande, OR Micropolitan Statistical Area   using only (2) |
+696. |    29380                                   Lake City, FL Micropolitan Statistical Area   using only (2) |
+697. |    29500                                      Lamesa, TX Micropolitan Statistical Area   using only (2) |
+698. |    29780                                   Las Vegas, NM Micropolitan Statistical Area   using only (2) |
+699. |    29900                                  Laurinburg, NC Micropolitan Statistical Area   using only (2) |
+700. |    29980                                Lawrenceburg, TN Micropolitan Statistical Area   using only (2) |
+701. |    30060                                     Lebanon, MO Micropolitan Statistical Area   using only (2) |
+702. |    30100                                  Lebanon, NH-VT Micropolitan Statistical Area   using only (2) |
+703. |    30220                                   Levelland, TX Micropolitan Statistical Area   using only (2) |
+704. |    30260                                   Lewisburg, PA Micropolitan Statistical Area   using only (2) |
+705. |    30280                                   Lewisburg, TN Micropolitan Statistical Area   using only (2) |
+706. |    30300                                 Lewiston, ID-WA Metropolitan Statistical Area   using only (2) |
+707. |    30380                                   Lewistown, PA Micropolitan Statistical Area   using only (2) |
+708. |    30420                                   Lexington, NE Micropolitan Statistical Area   using only (2) |
+709. |    30580                                     Liberal, KS Micropolitan Statistical Area   using only (2) |
+710. |    30660                                     Lincoln, IL Micropolitan Statistical Area   using only (2) |
+711. |    30740                                  Lincolnton, NC Micropolitan Statistical Area   using only (2) |
+712. |    30820                                  Lock Haven, PA Micropolitan Statistical Area   using only (2) |
+713. |    30900                                  Logansport, IN Micropolitan Statistical Area   using only (2) |
+714. |    30940                                      London, KY Micropolitan Statistical Area   using only (2) |
+715. |    31020                                    Longview, WA Metropolitan Statistical Area   using only (2) |
+716. |    31300                                   Lumberton, NC Micropolitan Statistical Area   using only (2) |
+717. |    31380                                      Macomb, IL Micropolitan Statistical Area   using only (2) |
+718. |    31460                           Madera-Chowchilla, CA Metropolitan Statistical Area   using only (2) |
+719. |    31500                                     Madison, IN Micropolitan Statistical Area   using only (2) |
+720. |    31620                                    Magnolia, AR Micropolitan Statistical Area   using only (2) |
+721. |    31660                                      Malone, NY Micropolitan Statistical Area   using only (2) |
+722. |    31860                       Mankato-North Mankato, MN Metropolitan Statistical Area   using only (2) |
+723. |    31920                                Marble Falls, TX Micropolitan Statistical Area   using only (2) |
+724. |    31980                                      Marion, IN Micropolitan Statistical Area   using only (2) |
+725. |    32060                               Marion-Herrin, IL Micropolitan Statistical Area   using only (2) |
+726. |    32140                                    Marshall, MN Micropolitan Statistical Area   using only (2) |
+727. |    32180                                    Marshall, MO Micropolitan Statistical Area   using only (2) |
+728. |    32220                                    Marshall, TX Micropolitan Statistical Area   using only (2) |
+729. |    32280                                      Martin, TN Micropolitan Statistical Area   using only (2) |
+730. |    32340                                   Maryville, MO Micropolitan Statistical Area   using only (2) |
+731. |    32460                                    Mayfield, KY Micropolitan Statistical Area   using only (2) |
+732. |    32500                                   Maysville, KY Micropolitan Statistical Area   using only (2) |
+733. |    32620                                      McComb, MS Micropolitan Statistical Area   using only (2) |
+734. |    32660                                 McMinnville, TN Micropolitan Statistical Area   using only (2) |
+735. |    32700                                   McPherson, KS Micropolitan Statistical Area   using only (2) |
+736. |    32740                                   Meadville, PA Micropolitan Statistical Area   using only (2) |
+737. |    32860                                   Menomonie, WI Micropolitan Statistical Area   using only (2) |
+738. |    32980                                     Merrill, WI Micropolitan Statistical Area   using only (2) |
+739. |    33020                                      Mexico, MO Micropolitan Statistical Area   using only (2) |
+740. |    33060                                       Miami, OK Micropolitan Statistical Area   using only (2) |
+741. |    33180                              Middlesborough, KY Micropolitan Statistical Area   using only (2) |
+742. |    33300                               Milledgeville, GA Micropolitan Statistical Area   using only (2) |
+743. |    33380                                      Minden, LA Micropolitan Statistical Area   using only (2) |
+744. |    33420                               Mineral Wells, TX Micropolitan Statistical Area   using only (2) |
+745. |    33580                                    Mitchell, SD Micropolitan Statistical Area   using only (2) |
+746. |    33620                                     Moberly, MO Micropolitan Statistical Area   using only (2) |
+747. |    33780                                      Monroe, MI Metropolitan Statistical Area   using only (2) |
+748. |    33820                                      Monroe, WI Micropolitan Statistical Area   using only (2) |
+749. |    33940                                    Montrose, CO Micropolitan Statistical Area   using only (2) |
+750. |    33980                               Morehead City, NC Micropolitan Statistical Area   using only (2) |
+751. |    34020                                 Morgan City, LA Micropolitan Statistical Area   using only (2) |
+752. |    34140                                      Moscow, ID Micropolitan Statistical Area   using only (2) |
+753. |    34180                                  Moses Lake, WA Micropolitan Statistical Area   using only (2) |
+754. |    34260                               Mountain Home, AR Micropolitan Statistical Area   using only (2) |
+755. |    34300                               Mountain Home, ID Micropolitan Statistical Area   using only (2) |
+756. |    34340                                  Mount Airy, NC Micropolitan Statistical Area   using only (2) |
+757. |    34380                              Mount Pleasant, MI Micropolitan Statistical Area   using only (2) |
+758. |    34420                              Mount Pleasant, TX Micropolitan Statistical Area   using only (2) |
+759. |    34460                              Mount Sterling, KY Micropolitan Statistical Area   using only (2) |
+760. |    34500                                Mount Vernon, IL Micropolitan Statistical Area   using only (2) |
+761. |    34700                                   Muscatine, IA Micropolitan Statistical Area   using only (2) |
+762. |    34900                                        Napa, CA Metropolitan Statistical Area   using only (2) |
+763. |    34940                         Naples-Marco Island, FL Metropolitan Statistical Area   using only (2) |
+764. |    35020                                  Natchez, MS-LA Micropolitan Statistical Area   using only (2) |
+765. |    35060                                Natchitoches, LA Micropolitan Statistical Area   using only (2) |
+766. |    35140                                    Newberry, SC Micropolitan Statistical Area   using only (2) |
+767. |    35220                                  New Castle, IN Micropolitan Statistical Area   using only (2) |
+768. |    35260                                  New Castle, PA Micropolitan Statistical Area   using only (2) |
+769. |    35340                                  New Iberia, LA Micropolitan Statistical Area   using only (2) |
+770. |    35420                      New Philadelphia-Dover, OH Micropolitan Statistical Area   using only (2) |
+771. |    35460                                     Newport, TN Micropolitan Statistical Area   using only (2) |
+772. |    35500                                      Newton, IA Micropolitan Statistical Area   using only (2) |
+773. |    35580                                     New Ulm, MN Micropolitan Statistical Area   using only (2) |
+774. |    35700                                     Nogales, AZ Micropolitan Statistical Area   using only (2) |
+775. |    35740                                     Norfolk, NE Micropolitan Statistical Area   using only (2) |
+776. |    35820                                North Platte, NE Micropolitan Statistical Area   using only (2) |
+777. |    35860                                North Vernon, IN Micropolitan Statistical Area   using only (2) |
+778. |    36020                                  Oak Harbor, WA Micropolitan Statistical Area   using only (2) |
+779. |    36060                                    Oak Hill, WV Micropolitan Statistical Area   using only (2) |
+780. |    36140                                  Ocean City, NJ Metropolitan Statistical Area   using only (2) |
+781. |    36260                            Ogden-Clearfield, UT Metropolitan Statistical Area   using only (2) |
+782. |    36300                          Ogdensburg-Massena, NY Micropolitan Statistical Area   using only (2) |
+783. |    36340                                    Oil City, PA Micropolitan Statistical Area   using only (2) |
+784. |    36380                                  Okeechobee, FL Micropolitan Statistical Area   using only (2) |
+785. |    36460                                       Olean, NY Micropolitan Statistical Area   using only (2) |
+786. |    36580                                     Oneonta, NY Micropolitan Statistical Area   using only (2) |
+787. |    36620                                  Ontario, OR-ID Micropolitan Statistical Area   using only (2) |
+788. |    36660                            Opelousas-Eunice, LA Micropolitan Statistical Area   using only (2) |
+789. |    36820                                   Oskaloosa, IA Micropolitan Statistical Area   using only (2) |
+790. |    36900                                     Ottumwa, IA Micropolitan Statistical Area   using only (2) |
+791. |    36940                                    Owatonna, MN Micropolitan Statistical Area   using only (2) |
+792. |    37020                                      Owosso, MI Micropolitan Statistical Area   using only (2) |
+793. |    37060                                      Oxford, MS Micropolitan Statistical Area   using only (2) |
+794. |    37220                                     Pahrump, NV Micropolitan Statistical Area   using only (2) |
+795. |    37420                                       Pampa, TX Micropolitan Statistical Area   using only (2) |
+796. |    37500                                   Paragould, AR Micropolitan Statistical Area   using only (2) |
+797. |    37540                                       Paris, TN Micropolitan Statistical Area   using only (2) |
+798. |    37660                                     Parsons, KS Micropolitan Statistical Area   using only (2) |
+799. |    37740                                      Payson, AZ Micropolitan Statistical Area   using only (2) |
+800. |    37780                                       Pecos, TX Micropolitan Statistical Area   using only (2) |
+801. |    37800                                       Pella, IA Micropolitan Statistical Area   using only (2) |
+802. |    37820                         Pendleton-Hermiston, OR Micropolitan Statistical Area   using only (2) |
+803. |    37940                                        Peru, IN Micropolitan Statistical Area   using only (2) |
+804. |    38020                    Phoenix Lake-Cedar Ridge, CA Micropolitan Statistical Area   using only (2) |
+805. |    38100                                    Picayune, MS Micropolitan Statistical Area   using only (2) |
+806. |    38180                                      Pierre, SD Micropolitan Statistical Area   using only (2) |
+807. |    38200                                 Pierre Part, LA Micropolitan Statistical Area   using only (2) |
+808. |    38220                                  Pine Bluff, AR Metropolitan Statistical Area   using only (2) |
+809. |    38260                                   Pittsburg, KS Micropolitan Statistical Area   using only (2) |
+810. |    38380                                   Plainview, TX Micropolitan Statistical Area   using only (2) |
+811. |    38420                                 Platteville, WI Micropolitan Statistical Area   using only (2) |
+812. |    38580                           Point Pleasant, WV-OH Micropolitan Statistical Area   using only (2) |
+813. |    38700                                     Pontiac, IL Micropolitan Statistical Area   using only (2) |
+814. |    38820                                Port Angeles, WA Micropolitan Statistical Area   using only (2) |
+815. |    38940                              Port St. Lucie, FL Metropolitan Statistical Area   using only (2) |
+816. |    39020                                  Portsmouth, OH Micropolitan Statistical Area   using only (2) |
+817. |    39060                                  Pottsville, PA Micropolitan Statistical Area   using only (2) |
+818. |    39220                                       Price, UT Micropolitan Statistical Area   using only (2) |
+819. |    39260                                  Prineville, OR Micropolitan Statistical Area   using only (2) |
+820. |    39540                                      Racine, WI Metropolitan Statistical Area   using only (2) |
+821. |    39700                                Raymondville, TX Micropolitan Statistical Area   using only (2) |
+822. |    39780                                   Red Bluff, CA Micropolitan Statistical Area   using only (2) |
+823. |    39820                                     Redding, CA Metropolitan Statistical Area   using only (2) |
+824. |    39860                                    Red Wing, MN Micropolitan Statistical Area   using only (2) |
+825. |    39940                                     Rexburg, ID Micropolitan Statistical Area   using only (2) |
+826. |    40080                              Richmond-Berea, KY Micropolitan Statistical Area   using only (2) |
+827. |    40100                        Rio Grande City-Roma, TX Micropolitan Statistical Area   using only (2) |
+828. |    40180                                    Riverton, WY Micropolitan Statistical Area   using only (2) |
+829. |    40260                              Roanoke Rapids, NC Micropolitan Statistical Area   using only (2) |
+830. |    40300                                    Rochelle, IL Micropolitan Statistical Area   using only (2) |
+831. |    40500                                    Rockland, ME Micropolitan Statistical Area   using only (2) |
+832. |    40540                                Rock Springs, WY Micropolitan Statistical Area   using only (2) |
+833. |    40620                                       Rolla, MO Micropolitan Statistical Area   using only (2) |
+834. |    40700                                    Roseburg, OR Micropolitan Statistical Area   using only (2) |
+835. |    40760                                     Ruidoso, NM Micropolitan Statistical Area   using only (2) |
+836. |    40820                                      Ruston, LA Micropolitan Statistical Area   using only (2) |
+837. |    40860                                     Rutland, VT Micropolitan Statistical Area   using only (2) |
+838. |    40940                                     Safford, AZ Micropolitan Statistical Area   using only (2) |
+839. |    40980              Saginaw-Saginaw Township North, MI Metropolitan Statistical Area   using only (2) |
+840. |    41220                                   St. Marys, GA Micropolitan Statistical Area   using only (2) |
+841. |    41260                                   St. Marys, PA Micropolitan Statistical Area   using only (2) |
+842. |    41540                                   Salisbury, MD Metropolitan Statistical Area   using only (2) |
+843. |    41580                                   Salisbury, NC Micropolitan Statistical Area   using only (2) |
+844. |    41820                                     Sanford, NC Micropolitan Statistical Area   using only (2) |
+845. |    42020                 San Luis Obispo-Paso Robles, CA Metropolitan Statistical Area   using only (2) |
+846. |    42100                      Santa Cruz-Watsonville, CA Metropolitan Statistical Area   using only (2) |
+847. |    42300                            Sault Ste. Marie, MI Micropolitan Statistical Area   using only (2) |
+848. |    42380                                       Sayre, PA Micropolitan Statistical Area   using only (2) |
+849. |    42460                                  Scottsboro, AL Micropolitan Statistical Area   using only (2) |
+850. |    42500                                  Scottsburg, IN Micropolitan Statistical Area   using only (2) |
+851. |    42620                                      Searcy, AR Micropolitan Statistical Area   using only (2) |
+852. |    42700                                     Sebring, FL Micropolitan Statistical Area   using only (2) |
+853. |    42740                                     Sedalia, MO Micropolitan Statistical Area   using only (2) |
+854. |    42780                                 Selinsgrove, PA Micropolitan Statistical Area   using only (2) |
+855. |    42820                                       Selma, AL Micropolitan Statistical Area   using only (2) |
+856. |    42860                                      Seneca, SC Micropolitan Statistical Area   using only (2) |
+857. |    42900                                Seneca Falls, NY Micropolitan Statistical Area   using only (2) |
+858. |    42940                                 Sevierville, TN Micropolitan Statistical Area   using only (2) |
+859. |    42980                                     Seymour, IN Micropolitan Statistical Area   using only (2) |
+860. |    43060                                     Shawnee, OK Micropolitan Statistical Area   using only (2) |
+861. |    43140                                      Shelby, NC Micropolitan Statistical Area   using only (2) |
+862. |    43180                                 Shelbyville, TN Micropolitan Statistical Area   using only (2) |
+863. |    43220                                     Shelton, WA Micropolitan Statistical Area   using only (2) |
+864. |    43320                                    Show Low, AZ Micropolitan Statistical Area   using only (2) |
+865. |    43380                                      Sidney, OH Micropolitan Statistical Area   using only (2) |
+866. |    43460                                    Sikeston, MO Micropolitan Statistical Area   using only (2) |
+867. |    43500                                 Silver City, NM Micropolitan Statistical Area   using only (2) |
+868. |    43540                                Silverthorne, CO Micropolitan Statistical Area   using only (2) |
+869. |    43660                                      Snyder, TX Micropolitan Statistical Area   using only (2) |
+870. |    43740                                    Somerset, PA Micropolitan Statistical Area   using only (2) |
+871. |    43860                    Southern Pines-Pinehurst, NC Micropolitan Statistical Area   using only (2) |
+872. |    43940                                   Spearfish, SD Micropolitan Statistical Area   using only (2) |
+873. |    43980                                     Spencer, IA Micropolitan Statistical Area   using only (2) |
+874. |    44020                                 Spirit Lake, IA Micropolitan Statistical Area   using only (2) |
+875. |    44220                                 Springfield, OH Metropolitan Statistical Area   using only (2) |
+876. |    44260                                  Starkville, MS Micropolitan Statistical Area   using only (2) |
+877. |    44300                               State College, PA Metropolitan Statistical Area   using only (2) |
+878. |    44500                                Stephenville, TX Micropolitan Statistical Area   using only (2) |
+879. |    44540                                    Sterling, CO Micropolitan Statistical Area   using only (2) |
+880. |    44580                                    Sterling, IL Micropolitan Statistical Area   using only (2) |
+881. |    44600                     Steubenville-Weirton, OH-WV Metropolitan Statistical Area   using only (2) |
+882. |    44740                                  Storm Lake, IA Micropolitan Statistical Area   using only (2) |
+883. |    44780                                     Sturgis, MI Micropolitan Statistical Area   using only (2) |
+884. |    44860                             Sulphur Springs, TX Micropolitan Statistical Area   using only (2) |
+885. |    44900                                 Summerville, GA Micropolitan Statistical Area   using only (2) |
+886. |    44980                                     Sunbury, PA Micropolitan Statistical Area   using only (2) |
+887. |    45000                                  Susanville, CA Micropolitan Statistical Area   using only (2) |
+888. |    45020                                  Sweetwater, TX Micropolitan Statistical Area   using only (2) |
+889. |    45140                                   Tahlequah, OK Micropolitan Statistical Area   using only (2) |
+890. |    45180                         Talladega-Sylacauga, AL Micropolitan Statistical Area   using only (2) |
+891. |    45260                                    Tallulah, LA Micropolitan Statistical Area   using only (2) |
+892. |    45340                                        Taos, NM Micropolitan Statistical Area   using only (2) |
+893. |    45380                                 Taylorville, IL Micropolitan Statistical Area   using only (2) |
+894. |    45520                                  The Dalles, OR Micropolitan Statistical Area   using only (2) |
+895. |    45540                                The Villages, FL Micropolitan Statistical Area   using only (2) |
+896. |    45580                                   Thomaston, GA Micropolitan Statistical Area   using only (2) |
+897. |    45620                                 Thomasville, GA Micropolitan Statistical Area   using only (2) |
+898. |    45660                                      Tiffin, OH Micropolitan Statistical Area   using only (2) |
+899. |    45740                                      Toccoa, GA Micropolitan Statistical Area   using only (2) |
+900. |    45860                                  Torrington, CT Micropolitan Statistical Area   using only (2) |
+901. |    45900                               Traverse City, MI Micropolitan Statistical Area   using only (2) |
+902. |    45980                                        Troy, AL Micropolitan Statistical Area   using only (2) |
+903. |    46020                        Truckee-Grass Valley, CA Micropolitan Statistical Area   using only (2) |
+904. |    46100                                   Tullahoma, TN Micropolitan Statistical Area   using only (2) |
+905. |    46260                                    Tuskegee, AL Micropolitan Statistical Area   using only (2) |
+906. |    46380                                       Ukiah, CA Micropolitan Statistical Area   using only (2) |
+907. |    46420                                       Union, SC Micropolitan Statistical Area   using only (2) |
+908. |    46460                               Union City, TN-KY Micropolitan Statistical Area   using only (2) |
+909. |    46500                                      Urbana, OH Micropolitan Statistical Area   using only (2) |
+910. |    46620                                      Uvalde, TX Micropolitan Statistical Area   using only (2) |
+911. |    46700                           Vallejo-Fairfield, CA Metropolitan Statistical Area   using only (2) |
+912. |    46740                                      Valley, AL Micropolitan Statistical Area   using only (2) |
+913. |    46780                                    Van Wert, OH Micropolitan Statistical Area   using only (2) |
+914. |    46860                                      Vernal, UT Micropolitan Statistical Area   using only (2) |
+915. |    46900                                      Vernon, TX Micropolitan Statistical Area   using only (2) |
+916. |    47080                                     Vidalia, GA Micropolitan Statistical Area   using only (2) |
+917. |    47180                                   Vincennes, IN Micropolitan Statistical Area   using only (2) |
+918. |    47220                Vineland-Millville-Bridgeton, NJ Metropolitan Statistical Area   using only (2) |
+919. |    47340                                      Wabash, IN Micropolitan Statistical Area   using only (2) |
+920. |    47420                                 Wahpeton, ND-MN Micropolitan Statistical Area   using only (2) |
+921. |    47500                                  Walterboro, SC Micropolitan Statistical Area   using only (2) |
+922. |    47540                                  Wapakoneta, OH Micropolitan Statistical Area   using only (2) |
+923. |    47620                                      Warren, PA Micropolitan Statistical Area   using only (2) |
+924. |    47660                                 Warrensburg, MO Micropolitan Statistical Area   using only (2) |
+925. |    47780                                  Washington, IN Micropolitan Statistical Area   using only (2) |
+926. |    47820                                  Washington, NC Micropolitan Statistical Area   using only (2) |
+927. |    47920                      Washington Court House, OH Micropolitan Statistical Area   using only (2) |
+928. |    48020                     Watertown-Fort Atkinson, WI Micropolitan Statistical Area   using only (2) |
+929. |    48100                                    Wauchula, FL Micropolitan Statistical Area   using only (2) |
+930. |    48220                                 Weatherford, OK Micropolitan Statistical Area   using only (2) |
+931. |    48460                                 West Plains, MO Micropolitan Statistical Area   using only (2) |
+932. |    48500                                  West Point, MS Micropolitan Statistical Area   using only (2) |
+933. |    48580                                  Whitewater, WI Micropolitan Statistical Area   using only (2) |
+934. |    48740                                 Willimantic, CT Micropolitan Statistical Area   using only (2) |
+935. |    48780                                   Williston, ND Micropolitan Statistical Area   using only (2) |
+936. |    48820                                     Willmar, MN Micropolitan Statistical Area   using only (2) |
+937. |    48940                                  Wilmington, OH Micropolitan Statistical Area   using only (2) |
+938. |    48980                                      Wilson, NC Micropolitan Statistical Area   using only (2) |
+939. |    49060                                    Winfield, KS Micropolitan Statistical Area   using only (2) |
+940. |    49100                                      Winona, MN Micropolitan Statistical Area   using only (2) |
+941. |    49260                                    Woodward, OK Micropolitan Statistical Area   using only (2) |
+942. |    49380                                 Worthington, MN Micropolitan Statistical Area   using only (2) |
+943. |    49460                                     Yankton, SD Micropolitan Statistical Area   using only (2) |
+944. |    49540                                  Yazoo City, MS Micropolitan Statistical Area   using only (2) |
+945. |    49700                                   Yuba City, CA Metropolitan Statistical Area   using only (2) |
+     +---------------------------------------------------------------------------------------------------------+
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /afs/econ.duke.edu/data/vjh3/TylerJMP/AccraData/accra_check.log
+  log type:  text
+ closed on:   3 Jan 2013, 15:43:49
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

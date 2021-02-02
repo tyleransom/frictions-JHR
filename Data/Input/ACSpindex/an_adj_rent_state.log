@@ -1,0 +1,259 @@
+--------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /home/data/ransom/frictions-JHR/Data/Input/ACSpindex/an_adj_rent_state.log
+  log type:  text
+ opened on:  30 Jan 2021, 20:30:13
+
+. 
+. use ACS2005raw, clear
+
+. 
+. drop if qacrehou > 0 | qbedroom > 0 | qbuilty2 > 0 | qkitchen > 0 | qrooms   > 0 | qunitsst > 0 
+> | gq>1 // drop any imputed values and any group quarters
+(442,157 observations deleted)
+
+. drop if metarea>0 // keep areas that are undisclosed
+(1,738,232 observations deleted)
+
+. 
+. gen logrent = ln(rentgrs)
+(606,046 missing values generated)
+
+. 
+. qui tab bedrooms, gen(bed_dum)
+
+. qui tab rooms, gen(room_dum)
+
+. qui tab builtyr2, gen(age_dum)
+
+. qui tab unitsstr, gen(units_dum)
+
+. qui tab plumbing, gen(plumbing_dum)
+
+. qui tab kitchen, gen(kitchen_dum)
+
+. qui tab acrehous, gen(acre_dum)
+
+. qui tab statefip, gen(metro_dum)
+
+. 
+. local regressors bed_dum* room_dum* age_dum* units_dum* plumbing_dum* kitchen_dum* acre_dum*
+
+. 
+. count
+  697,991
+
+. areg logrent `regressors', absorb(statefip) // metro_dum2-metro_dum283
+note: bed_dum6 omitted because of collinearity
+note: room_dum9 omitted because of collinearity
+note: age_dum9 omitted because of collinearity
+note: units_dum10 omitted because of collinearity
+note: plumbing_dum2 omitted because of collinearity
+note: kitchen_dum2 omitted because of collinearity
+note: acre_dum1 omitted because of collinearity
+note: acre_dum3 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =     91,945
+                                                F(  33,  91863)   =     799.34
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2868
+                                                Adj R-squared     =     0.2862
+                                                Root MSE          =     0.4361
+
+-------------------------------------------------------------------------------
+      logrent |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+     bed_dum1 |  -.3211114   .0359626    -8.93   0.000    -.3915978    -.250625
+     bed_dum2 |   -.341898   .0133099   -25.69   0.000    -.3679853   -.3158106
+     bed_dum3 |  -.0582737   .0115178    -5.06   0.000    -.0808485    -.035699
+     bed_dum4 |   .0076914   .0108321     0.71   0.478    -.0135393    .0289222
+     bed_dum5 |   .0115719   .0107521     1.08   0.282     -.009502    .0326459
+     bed_dum6 |          0  (omitted)
+    room_dum1 |   -.238542   .0421876    -5.65   0.000    -.3212293   -.1558547
+    room_dum2 |  -.2467059    .015509   -15.91   0.000    -.2771034   -.2163084
+    room_dum3 |  -.3016013   .0126457   -23.85   0.000    -.3263867   -.2768158
+    room_dum4 |  -.2611128   .0112947   -23.12   0.000    -.2832503   -.2389754
+    room_dum5 |  -.2107683   .0106231   -19.84   0.000    -.2315895   -.1899472
+    room_dum6 |  -.1387939   .0104589   -13.27   0.000    -.1592931   -.1182946
+    room_dum7 |  -.0885178   .0105913    -8.36   0.000    -.1092767    -.067759
+    room_dum8 |  -.0392676   .0113711    -3.45   0.001    -.0615548   -.0169804
+    room_dum9 |          0  (omitted)
+     age_dum1 |  -.3732654   .0309987   -12.04   0.000    -.4340224   -.3125083
+     age_dum2 |   -.360793    .031248   -11.55   0.000    -.4220388   -.2995471
+     age_dum3 |  -.3442066   .0310824   -11.07   0.000    -.4051278   -.2832854
+     age_dum4 |  -.3387153    .031055   -10.91   0.000    -.3995828   -.2778479
+     age_dum5 |  -.3296279   .0309229   -10.66   0.000    -.3902364   -.2690194
+     age_dum6 |  -.3150382   .0309753   -10.17   0.000    -.3757495   -.2543269
+     age_dum7 |   -.193195   .0310053    -6.23   0.000     -.253965   -.1324249
+     age_dum8 |  -.0279969   .0313551    -0.89   0.372    -.0894526    .0334588
+     age_dum9 |          0  (omitted)
+   units_dum1 |  -.0799659    .012717    -6.29   0.000    -.1048911   -.0550407
+   units_dum2 |  -.1220831   .0707901    -1.72   0.085     -.260831    .0166648
+   units_dum3 |   .1089718   .0123703     8.81   0.000     .0847262    .1332174
+   units_dum4 |   .0969129   .0143302     6.76   0.000      .068826    .1249999
+   units_dum5 |   .0231471   .0112101     2.06   0.039     .0011755    .0451188
+   units_dum6 |  -.0332961   .0110146    -3.02   0.003    -.0548846   -.0117076
+   units_dum7 |  -.0669819    .011318    -5.92   0.000     -.089165   -.0447987
+   units_dum8 |   .0358393   .0122138     2.93   0.003     .0119004    .0597782
+   units_dum9 |  -.1141513   .0128006    -8.92   0.000    -.1392403   -.0890622
+  units_dum10 |          0  (omitted)
+plumbing_dum1 |  -.3839901   .0217295   -17.67   0.000    -.4265798   -.3414004
+plumbing_dum2 |          0  (omitted)
+ kitchen_dum1 |   .1209643   .0195971     6.17   0.000     .0825542    .1593744
+ kitchen_dum2 |          0  (omitted)
+    acre_dum1 |          0  (omitted)
+    acre_dum2 |   .0808934   .0068302    11.84   0.000     .0675062    .0942806
+    acre_dum3 |          0  (omitted)
+        _cons |   6.818052   .0339457   200.85   0.000     6.751518    6.884585
+--------------+----------------------------------------------------------------
+     statefip |      F(48, 91863) =    270.668   0.000          (49 categories)
+
+. matrix coeffs = e(b)'
+
+. predict fixed_effects, d
+(606,046 missing values generated)
+
+. 
+. preserve
+
+.         collapse fixed_effects , by(statefip)
+
+.         mkmat fixed_effects statefip, matrix(FE) nomissing
+
+. restore
+
+. 
+. matrix accum A = `regressors' , noconstant deviations means(matmeans)
+(obs=697,991)
+
+. matrix matmeans = [matmeans,1]
+
+. 
+. ** need to repmat "matmeans" 48 times ... or collapse the regressor means by location to get a 4
+> 8 x K matrix ........
+. matrix matmeans = J(49,1,1)*matmeans
+
+. 
+. mata
+------------------------------------------------- mata (type end to exit) ------------------------
+: zed = st_matrix("FE")
+
+: zed1 = zed[.,1]
+
+: zed2 = zed[.,2]
+
+: st_matrix("FE1",zed1)
+
+: st_matrix("FEnames",zed2)
+
+: end
+--------------------------------------------------------------------------------------------------
+
+. matrix prices = matmeans*coeffs + FE1
+
+. 
+. svmat prices, names(locprice)
+
+. gen mean_price =  6.77844 // mean price from MSA regression
+
+. svmat FEnames, names(locnames)
+
+. 
+. preserve
+
+. keep locprice1 locnames1 mean_price
+
+. keep if locprice1<.
+(697,942 observations deleted)
+
+. ren locnames1 state
+
+. ren locprice1 grents
+
+. * replace grents = grents/mean_price*100 // deflate gross rents by mean location AFTER merging i
+> n with ACCRA data
+. drop mean_price
+
+. sum grents
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      grents |         49    6.562445    .2109849   6.245015   7.078677
+
+. l
+
+     +------------------+
+     |   grents   state |
+     |------------------|
+  1. | 6.245015       1 |
+  2. | 6.803076       2 |
+  3. | 6.591636       4 |
+  4. | 6.359916       5 |
+  5. |  6.78559       6 |
+     |------------------|
+  6. | 6.746186       8 |
+  7. | 7.075811       9 |
+  8. | 6.692654      10 |
+  9. | 6.707911      12 |
+ 10. | 6.464634      13 |
+     |------------------|
+ 11. | 6.992295      15 |
+ 12. | 6.515107      16 |
+ 13. | 6.428399      17 |
+ 14. | 6.478539      18 |
+ 15. | 6.480462      19 |
+     |------------------|
+ 16. | 6.451732      20 |
+ 17. | 6.362801      21 |
+ 18. | 6.367992      22 |
+ 19. | 6.640732      23 |
+ 20. | 6.689635      24 |
+     |------------------|
+ 21. |  6.93447      25 |
+ 22. | 6.537327      26 |
+ 23. | 6.445678      27 |
+ 24. | 6.334939      28 |
+ 25. | 6.345473      29 |
+     |------------------|
+ 26. | 6.482224      30 |
+ 27. | 6.341547      31 |
+ 28. | 6.714533      32 |
+ 29. | 6.981967      33 |
+ 30. | 6.364715      35 |
+     |------------------|
+ 31. | 6.658421      36 |
+ 32. | 6.485993      37 |
+ 33. | 6.273305      38 |
+ 34. | 6.498172      39 |
+ 35. | 6.386285      40 |
+     |------------------|
+ 36. | 6.666641      41 |
+ 37. | 6.451924      42 |
+ 38. | 7.078677      44 |
+ 39. | 6.497638      45 |
+ 40. | 6.308595      46 |
+     |------------------|
+ 41. | 6.341754      47 |
+ 42. | 6.482696      48 |
+ 43. | 6.582488      49 |
+ 44. | 6.853291      50 |
+ 45. | 6.494928      51 |
+     |------------------|
+ 46. | 6.619154      53 |
+ 47. | 6.408419      54 |
+ 48. | 6.583628      55 |
+ 49. | 6.524806      56 |
+     +------------------+
+
+. save ../AccraData/sourcedata/gross_rents_state, replace
+file ../AccraData/sourcedata/gross_rents_state.dta saved
+
+. restore
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /home/data/ransom/frictions-JHR/Data/Input/ACSpindex/an_adj_rent_state.log
+  log type:  text
+ closed on:  30 Jan 2021, 20:30:19
+--------------------------------------------------------------------------------------------------

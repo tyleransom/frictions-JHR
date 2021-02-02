@@ -1,0 +1,1187 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /home/data/ransom/TylerJMP/CountyUnemp/concatenator_annual.log
+  log type:  text
+ opened on:  17 Jul 2018, 16:50:12
+
+. 
+. * foreach state in al {
+. foreach state in al ak az ar ca co ct dc de fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri sc sd tn tx ut vt va wa wv wi wy {
+  2.     tempfile `state'
+  3.     insheet using `state'.txt, clear
+  4.     
+.     drop if substr(series_id,1,5)~="LAUCN"
+  5.     drop if period~="M13"
+  6.     
+.     gen FIPS    = substr(series_id,6,5)
+  7.     gen state   = substr(FIPS,1,2)
+  8.     gen county  = substr(FIPS,3,3)
+  9.     gen vartype = substr(series_id,20,1)
+ 10.     gen month   = substr(period,2,2)
+ 11.     drop period series_id month
+ 12.     
+.     destring state county vartype, replace
+ 13.     
+.     reshape wide value, i(state county year) j(vartype)
+ 14.     ren value3 urate
+ 15.     ren value4 unemployed
+ 16.     ren value5 employed
+ 17.     ren value6 labor_force
+ 18.     destring urate unemployed employed labor_force, replace force
+ 19.     
+.     sort FIPS year
+ 20.     order FIPS state county year labor_force employed unemployed urate
+ 21.     save ``state'', replace
+ 22. }
+(5 vars, 205,304 obs)
+(106,412 observations deleted)
+(91,388 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7504   ->    1876
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000001 not found)
+file /tmp/St26153.000001 saved
+(5 vars, 57,000 obs)
+(16,484 observations deleted)
+(37,444 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     3072   ->     768
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000002 not found)
+file /tmp/St26153.000002 saved
+(5 vars, 85,736 obs)
+(63,596 observations deleted)
+(20,460 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1680   ->     420
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000003 not found)
+file /tmp/St26153.000003 saved
+(5 vars, 184,684 obs)
+(73,984 observations deleted)
+(102,300 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     8400   ->    2100
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000004 not found)
+file /tmp/St26153.000004 saved
+(5 vars, 549,408 obs)
+(463,800 observations deleted)
+(79,112 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     6496   ->    1624
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000005 not found)
+file /tmp/St26153.000005 saved
+(5 vars, 184,328 obs)
+(89,864 observations deleted)
+(87,296 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7168   ->    1792
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000006 not found)
+file /tmp/St26153.000006 saved
+(5 vars, 285,720 obs)
+(273,912 observations deleted)
+(10,912 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      896   ->     224
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000007 not found)
+file /tmp/St26153.000007 saved
+(5 vars, 13,096 obs)
+(11,620 observations deleted)
+(1,364 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      112   ->      28
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000008 not found)
+file /tmp/St26153.000008 saved
+(5 vars, 20,476 obs)
+(16,048 observations deleted)
+(4,092 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      336   ->      84
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000009 not found)
+file /tmp/St26153.000009 saved
+(5 vars, 288,656 obs)
+(189,764 observations deleted)
+(91,388 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7504   ->    1876
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000a not found)
+file /tmp/St26153.00000a saved
+(5 vars, 352,244 obs)
+(117,560 observations deleted)
+(216,876 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    17808   ->    4452
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000b not found)
+file /tmp/St26153.00000b saved
+(5 vars, 17,524 obs)
+(11,620 observations deleted)
+(5,456 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      448   ->     112
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000c not found)
+file /tmp/St26153.00000c saved
+(5 vars, 114,388 obs)
+(49,444 observations deleted)
+(60,016 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     4928   ->    1232
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000d not found)
+file /tmp/St26153.00000d saved
+(5 vars, 398,708 obs)
+(248,156 observations deleted)
+(139,128 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    11424   ->    2856
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000e not found)
+file /tmp/St26153.00000e saved
+(5 vars, 261,580 obs)
+(125,788 observations deleted)
+(125,488 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    10304   ->    2576
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000f not found)
+file /tmp/St26153.00000f saved
+(5 vars, 235,252 obs)
+(89,128 observations deleted)
+(135,036 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    11088   ->    2772
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000g not found)
+file /tmp/St26153.00000g saved
+(5 vars, 218,476 obs)
+(63,496 observations deleted)
+(143,220 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    11760   ->    2940
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000h not found)
+file /tmp/St26153.00000h saved
+(5 vars, 252,216 obs)
+(75,096 observations deleted)
+(163,680 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    13440   ->    3360
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000i not found)
+file /tmp/St26153.00000i saved
+(5 vars, 155,748 obs)
+(61,284 observations deleted)
+(87,296 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7168   ->    1792
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate: contains nonnumeric characters; replaced as double
+(14 missing values generated)
+unemployed: contains nonnumeric characters; replaced as int
+(14 missing values generated)
+employed: contains nonnumeric characters; replaced as long
+(14 missing values generated)
+labor_force: contains nonnumeric characters; replaced as long
+(14 missing values generated)
+(note: file /tmp/St26153.00000j not found)
+file /tmp/St26153.00000j saved
+(5 vars, 737,736 obs)
+(714,120 observations deleted)
+(21,824 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1792   ->     448
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000k not found)
+file /tmp/St26153.00000k saved
+(5 vars, 70,160 obs)
+(34,736 observations deleted)
+(32,736 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     2688   ->     672
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000l not found)
+file /tmp/St26153.00000l saved
+(5 vars, 577,568 obs)
+(556,904 observations deleted)
+(19,096 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1568   ->     392
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000m not found)
+file /tmp/St26153.00000m saved
+(5 vars, 323,784 obs)
+(201,276 observations deleted)
+(113,212 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     9296   ->    2324
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000n not found)
+file /tmp/St26153.00000n saved
+(5 vars, 242,164 obs)
+(113,752 observations deleted)
+(118,668 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     9744   ->    2436
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000o not found)
+file /tmp/St26153.00000o saved
+(5 vars, 191,544 obs)
+(70,512 observations deleted)
+(111,848 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     9184   ->    2296
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000p not found)
+file /tmp/St26153.00000p saved
+(5 vars, 279,636 obs)
+(109,896 observations deleted)
+(156,860 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    12880   ->    3220
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000q not found)
+file /tmp/St26153.00000q saved
+(5 vars, 109,036 obs)
+(26,380 observations deleted)
+(76,384 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     6272   ->    1568
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000r not found)
+file /tmp/St26153.00000r saved
+(5 vars, 175,944 obs)
+(38,676 observations deleted)
+(126,852 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    10416   ->    2604
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000s not found)
+file /tmp/St26153.00000s saved
+(5 vars, 54,424 obs)
+(29,332 observations deleted)
+(23,188 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1904   ->     476
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000t not found)
+file /tmp/St26153.00000t saved
+(5 vars, 400,772 obs)
+(386,012 observations deleted)
+(13,640 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1120   ->     280
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000u not found)
+file /tmp/St26153.00000u saved
+(5 vars, 190,064 obs)
+(159,068 observations deleted)
+(28,644 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     2352   ->     588
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000v not found)
+file /tmp/St26153.00000v saved
+(5 vars, 98,704 obs)
+(49,996 observations deleted)
+(45,012 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     3696   ->     924
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000w not found)
+file /tmp/St26153.00000w saved
+(5 vars, 299,664 obs)
+(208,152 observations deleted)
+(84,568 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     6944   ->    1736
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00000x not found)
+file /tmp/St26153.00000x saved
+(5 vars, 295,884 obs)
+(148,284 observations deleted)
+(136,400 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    11200   ->    2800
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000010 not found)
+file /tmp/St26153.000010 saved
+(5 vars, 106,956 obs)
+(28,728 observations deleted)
+(72,292 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     5936   ->    1484
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000011 not found)
+file /tmp/St26153.000011 saved
+(5 vars, 332,376 obs)
+(202,488 observations deleted)
+(120,032 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     9856   ->    2464
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000012 not found)
+file /tmp/St26153.000012 saved
+(5 vars, 191,812 obs)
+(78,160 observations deleted)
+(105,028 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     8624   ->    2156
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000013 not found)
+file /tmp/St26153.000013 saved
+(5 vars, 134,488 obs)
+(81,352 observations deleted)
+(49,104 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     4032   ->    1008
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000014 not found)
+file /tmp/St26153.000014 saved
+(5 vars, 265,352 obs)
+(166,460 observations deleted)
+(91,388 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7504   ->    1876
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000015 not found)
+file /tmp/St26153.000015 saved
+(5 vars, 73,612 obs)
+(66,232 observations deleted)
+(6,820 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      560   ->     140
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000016 not found)
+file /tmp/St26153.000016 saved
+(5 vars, 136,868 obs)
+(68,972 observations deleted)
+(62,744 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     5152   ->    1288
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000017 not found)
+file /tmp/St26153.000017 saved
+(5 vars, 129,700 obs)
+(32,284 observations deleted)
+(90,024 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     7392   ->    1848
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000018 not found)
+file /tmp/St26153.000018 saved
+(5 vars, 249,668 obs)
+(109,448 observations deleted)
+(129,580 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    10640   ->    2660
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.000019 not found)
+file /tmp/St26153.000019 saved
+(5 vars, 755,812 obs)
+(380,908 observations deleted)
+(346,456 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    28448   ->    7112
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001a not found)
+file /tmp/St26153.00001a saved
+(5 vars, 102,292 obs)
+(59,488 observations deleted)
+(39,556 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     3248   ->     812
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001b not found)
+file /tmp/St26153.00001b saved
+(5 vars, 386,384 obs)
+(365,720 observations deleted)
+(19,096 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     1568   ->     392
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001c not found)
+file /tmp/St26153.00001c saved
+(5 vars, 296,124 obs)
+(99,816 observations deleted)
+(181,412 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    14896   ->    3724
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001d not found)
+file /tmp/St26153.00001d saved
+(5 vars, 163,012 obs)
+(105,448 observations deleted)
+(53,196 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     4368   ->    1092
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001e not found)
+file /tmp/St26153.00001e saved
+(5 vars, 132,652 obs)
+(51,472 observations deleted)
+(75,020 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     6160   ->    1540
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001f not found)
+file /tmp/St26153.00001f saved
+(5 vars, 217,052 obs)
+(110,780 observations deleted)
+(98,208 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as int
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     8064   ->    2016
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001g not found)
+file /tmp/St26153.00001g saved
+(5 vars, 58,332 obs)
+(24,384 observations deleted)
+(31,372 observations deleted)
+state: all characters numeric; replaced as byte
+county: all characters numeric; replaced as byte
+vartype: all characters numeric; replaced as byte
+(note: j = 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     2576   ->     644
+Number of variables                   7   ->       9
+j variable (4 values)           vartype   ->   (dropped)
+xij variables:
+                                  value   ->   value3 value4 ... value6
+-----------------------------------------------------------------------------
+urate already numeric; no replace
+unemployed already numeric; no replace
+employed already numeric; no replace
+labor_force already numeric; no replace
+(note: file /tmp/St26153.00001h not found)
+file /tmp/St26153.00001h saved
+
+. 
+. use `al', clear
+
+. foreach state in ak az ar ca co ct dc de fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri sc sd tn tx ut vt va wa wv wi wy {
+  2.     append using ``state''
+  3. }
+(note: variable labor_force was float, now double to accommodate using data's values)
+(note: variable employed was float, now double to accommodate using data's values)
+(note: variable urate was float, now double to accommodate using data's values)
+
+. 
+. save county_unemp_annual, replace
+file county_unemp_annual.dta saved
+
+. drop footnote_codes
+
+. outsheet using county_unemp_annual.csv, comma nol replace
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /home/data/ransom/TylerJMP/CountyUnemp/concatenator_annual.log
+  log type:  text
+ closed on:  17 Jul 2018, 16:50:54
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

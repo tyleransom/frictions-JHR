@@ -1,0 +1,13 @@
+ca91  // Gross flow of earnings
+ca45  // Farm income and expenses
+ca35  // Personal current transfer receipts
+ca34  // Average wage per job, wage and salary disbursements and employment
+ca30  // Economic profiles
+ca25n // Total full-time and part-time employment by industry
+ca25  // Total full-time and part-time employment by industry
+ca1-3 // Personal income, per capita personal income, and population
+ca06n // Compensation of employees by industry
+ca06  // Compensation of employees by industry
+ca05n // Personal income and earnings by industry
+ca05  // Personal income and earnings by industry
+ca04  // Personal income and employment summary
